@@ -1,17 +1,136 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\IJser\\source\\repos\\CallBoardNix\\CallBoardNix\\CallBoardNix.csproj": {}
+    "C:\\Users\\IJser\\Source\\Repos\\CallBoardNix\\CallBoardNix\\CallBoardNix.csproj": {}
   },
   "projects": {
-    "C:\\Users\\IJser\\source\\repos\\CallBoardNix\\CallBoardNix\\CallBoardNix.csproj": {
+    "C:\\Users\\IJser\\Source\\Repos\\CallBoardNix\\BusinessLayer\\BusinessLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\IJser\\source\\repos\\CallBoardNix\\CallBoardNix\\CallBoardNix.csproj",
-        "projectName": "CallBoardNix",
-        "projectPath": "C:\\Users\\IJser\\source\\repos\\CallBoardNix\\CallBoardNix\\CallBoardNix.csproj",
+        "projectUniqueName": "C:\\Users\\IJser\\Source\\Repos\\CallBoardNix\\BusinessLayer\\BusinessLayer.csproj",
+        "projectName": "BusinessLayer",
+        "projectPath": "C:\\Users\\IJser\\Source\\Repos\\CallBoardNix\\BusinessLayer\\BusinessLayer.csproj",
         "packagesPath": "C:\\Users\\IJser\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\IJser\\source\\repos\\CallBoardNix\\CallBoardNix\\obj\\",
+        "outputPath": "C:\\Users\\IJser\\Source\\Repos\\CallBoardNix\\BusinessLayer\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\IJser\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\IJser\\Source\\Repos\\CallBoardNix\\DataLayer\\DataLayer.csproj": {
+                "projectPath": "C:\\Users\\IJser\\Source\\Repos\\CallBoardNix\\DataLayer\\DataLayer.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\IJser\\Source\\Repos\\CallBoardNix\\CallBoardNix\\CallBoardNix.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\IJser\\Source\\Repos\\CallBoardNix\\CallBoardNix\\CallBoardNix.csproj",
+        "projectName": "CallBoardNix",
+        "projectPath": "C:\\Users\\IJser\\Source\\Repos\\CallBoardNix\\CallBoardNix\\CallBoardNix.csproj",
+        "packagesPath": "C:\\Users\\IJser\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\IJser\\Source\\Repos\\CallBoardNix\\CallBoardNix\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\IJser\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\IJser\\Source\\Repos\\CallBoardNix\\BusinessLayer\\BusinessLayer.csproj": {
+                "projectPath": "C:\\Users\\IJser\\Source\\Repos\\CallBoardNix\\BusinessLayer\\BusinessLayer.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\IJser\\Source\\Repos\\CallBoardNix\\DataLayer\\DataLayer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\IJser\\Source\\Repos\\CallBoardNix\\DataLayer\\DataLayer.csproj",
+        "projectName": "DataLayer",
+        "projectPath": "C:\\Users\\IJser\\Source\\Repos\\CallBoardNix\\DataLayer\\DataLayer.csproj",
+        "packagesPath": "C:\\Users\\IJser\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\IJser\\Source\\Repos\\CallBoardNix\\DataLayer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\IJser\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -50,9 +169,6 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
