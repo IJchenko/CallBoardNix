@@ -1,9 +1,11 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
+#nullable disable
+
 namespace DataLayer.Migrations
 {
-    public partial class InitialMigrate : Migration
+    public partial class initmigrate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -70,8 +72,7 @@ namespace DataLayer.Migrations
                         name: "FK_Resumes_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -93,14 +94,12 @@ namespace DataLayer.Migrations
                         name: "FK_Adverts_Categories_categoryId",
                         column: x => x.categoryId,
                         principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Adverts_Companys_companyId",
                         column: x => x.companyId,
                         principalTable: "Companys",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -119,8 +118,7 @@ namespace DataLayer.Migrations
                         name: "FK_Reviews_Companys_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Companys",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
