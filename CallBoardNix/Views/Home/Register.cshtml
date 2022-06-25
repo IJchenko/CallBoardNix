@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Register Page";
+    Layout = "/Views/Shared/_LayoutLogReg.cshtml";
+}
+
+
+<div class="container">
+    
+    <div class="text-center">
+    <form method="post" action="~/Home/Register" class="border-start border-end">
+
+        <br><h6>Change! Who are you?</h6>
+        <h6>I am <select name="status">
+            <option value="Worker">Worker</option>
+            <option value="Employer">Employer</option>
+        </select></h6>
+        <label>Name</label><br>
+        <input type="text" name="name"/><br>
+        <label>Surname</label><br>
+        <input type="text" name="surname"/><br>
+        <label>Phone</label><br>
+        <input type="text" name="phone"/><br>
+        <label>Email</label><br>
+        <input type="email" name="email"/><br>
+        <label>Password</label><br>
+        <input type="password" name="password"/><br>
+        <label>Repeat password</label><br>
+        <input type="password" name="password"/><br><br>
+        <input type="submit" value="Sign up"/><br><br>
+    </form>
+    </div>
+
+</div>
