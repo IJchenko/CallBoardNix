@@ -1,33 +1,51 @@
-﻿@{
+﻿@model RegisterModel
+@{
     ViewData["Title"] = "Register Page";
     Layout = "/Views/Shared/_LayoutLogReg.cshtml";
 }
 
 
-<div class="container">
+<div class="container text-center w-25">
     
-    <div class="text-center">
-    <form method="post" action="~/Home/Register" class="border-start border-end">
-
+    <form asp-controller="Home" asp-action="Register">
+         
         <br><h6>Change! Who are you?</h6>
         <h6>I am <select name="status">
             <option value="Worker">Worker</option>
             <option value="Employer">Employer</option>
         </select></h6>
-        <label>Name</label><br>
-        <input type="text" name="name"/><br>
-        <label>Surname</label><br>
-        <input type="text" name="surname"/><br>
-        <label>Phone</label><br>
-        <input type="text" name="phone"/><br>
-        <label>Email</label><br>
-        <input type="email" name="email"/><br>
-        <label>Password</label><br>
-        <input type="password" name="password"/><br>
-        <label>Repeat password</label><br>
-        <input type="password" name="password"/><br><br>
-        <input type="submit" value="Sign up"/><br><br>
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            @*<span asp-validation-for="" class="text-danger"></span>*@
+        </div>
+        <br><div class="form-group">
+            <label asp-for="Surname" class="control-label"></label>
+            <input asp-for="Surname" class="form-control" />
+            @*<span asp-validation-for="" class="text-danger"></span>*@
+        </div>
+        <br><div class="form-group">
+            <label asp-for="PhoneNumber" class="control-label"></label>
+            <input asp-for="PhoneNumber" class="form-control" />
+            @*<span asp-validation-for="" class="text-danger"></span>*@
+        </div>
+        <br><div class="form-group">
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control" />
+            @*<span asp-validation-for="" class="text-danger"></span>*@
+        </div>
+        <br><div class="form-group">
+            <label asp-for="Password" class="control-label"></label>
+            <input asp-for="Password" class="form-control" />
+            @*<span asp-validation-for="" class="text-danger"></span>*@
+        </div>
+        <br><div class="form-group">
+            <label asp-for="Password" class="control-label">Repeat password</label>
+            <input asp-for="Password" class="form-control" />
+            @*<span asp-validation-for="" class="text-danger"></span>*@
+        </div><br>
+        <div class="form-group">
+            <input type="submit" value="Sign up" class="btn btn-outline-dark btn-sm" />
+        </div><br>
     </form>
-    </div>
-
 </div>

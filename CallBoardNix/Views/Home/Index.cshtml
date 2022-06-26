@@ -7,15 +7,13 @@
 }
 @using BusinessLayer.DTO
 @using CallBoardNix.Extentions.Helpers
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
 
-
+<br>
 @Html.CreateList(name, salary, desc)
 
-@*    <ul>
+@*    
+    //это массив строк хелпера CreateList
+    <ul>
         <li class="border mb-3 overflow-scroll" style="margin-right:26px; max-height: 150px; overflow-x:hidden"> 
             <div class="row p-2">
                 <div class="col">
