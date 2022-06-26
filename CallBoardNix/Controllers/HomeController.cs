@@ -10,6 +10,7 @@ namespace CallBoardNix.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         AdvertViewModel advert1;
+        UserViewModel user1;
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -21,6 +22,16 @@ namespace CallBoardNix.Controllers
                 Salary = "2000",
                 company = new Company() { CompanyName = "Nix", Description = "some text desc", Reviews = null, Link = "https://www.nixsolutions.com/ru/", URLImage = null, Users = null, Id = Guid.NewGuid() },
                 category = new Category() { Id = Guid.NewGuid(), CategoryName="C#", URLImage=null },
+            };
+            user1 = new UserViewModel()
+            {
+                Name = "Dmytro",
+                Surname = "Zin",
+                PhoneNumber = "0666055552",
+                Email = "dimas@gmail.com",
+                Resumes = null,
+                Companies = null,
+                Reviews = null
             };
         }
 
@@ -38,9 +49,9 @@ namespace CallBoardNix.Controllers
             return View();
         }
         [HttpPost]
-        public string Register(UserDTO model)
+        public string Register(RegisterModel model)
         {
-            return $"{model.Name}--{model.Surname}--{model.Status}--{model.PhoneNumber}--{model.Email}--{model.Password}--";
+            return $"{model.Name}--{model.Surname}--{model.status}--{model.PhoneNumber}--{model.Email}--{model.Password}--";
         }
 
         public IActionResult Advert()
@@ -54,7 +65,21 @@ namespace CallBoardNix.Controllers
             ViewBag.Advert = advert;
             return View();
         }
-
+        [HttpGet]
+        public IActionResult Profile(UserViewModel user)
+        {
+            user= user1;
+            return View(user);
+        }
+        public IActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public string Login(LoginModel login)
+        {
+            return $"{login.Email}------{login.Password}";
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
