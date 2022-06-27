@@ -1,26 +1,36 @@
-﻿@model LoginModel
+﻿@model CallBoardNix.Models.LoginModel
 
 @{
-    ViewData["Title"] = "Login Page";
-    Layout = "/Views/Shared/_LayoutLogReg.cshtml";
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_LayoutLogReg.cshtml";
 }
-<div class="container text-center w-25">
- <form asp-controller="Home" asp-action="Login">
-            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
-            
-            <br><div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                @*<span asp-validation-for="" class="text-danger"></span>*@
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-               @* <span asp-validation-for="" class="text-danger"></span>*@
-            </div><br>
 
+
+
+<div class="container">
+<div class="row justify-content-md-center">
+    <div class="col-md-4" style="padding-top:15%; padding-bottom:25%">
+        <h5 class="text-center">Logging...</h5><br>
+        <form asp-controller="Home" asp-action="Login">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <input type="submit" value="Sign in" class="btn btn-outline-dark btn-sm" />
-            </div>
-</form>
+                <label asp-for="Email" class="control-label">Email:</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div><br>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label">Password:</label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div><br>
+            <div class="form-group text-center">
+                <input type="submit" value="Sign in" class="btn btn-outline-dark" style="border-radius: 0px;"/>
+            </div><br>
+        </form>
+    </div>
 </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
