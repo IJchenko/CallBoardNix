@@ -1,6 +1,7 @@
-﻿using BusinessLayer.DTO;
-using BusinessLayer.Extension.Mappers;
+﻿using AutoMapper;
+using BusinessLayer.DTO;
 using BusinessLayer.Interfaces;
+using DataLayer.Models;
 using DataLayer.Repository;
 using System;
 using System.Collections.Generic;
@@ -13,9 +14,11 @@ namespace BusinessLayer.Services
     public class CompanyService : ICompanyService
     {
         private readonly IRepository _repository;
-        public CompanyService(IRepository repository)
+        private readonly IMapper _mapper;
+        public CompanyService(IRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
         public async Task<CompanyDTO> AddCompany(CompanyDTO model)
         {
@@ -23,8 +26,9 @@ namespace BusinessLayer.Services
             {
                 throw new ArgumentNullException(nameof(model), "model is empty");
             }
-            var company = model.ToEntity();
-            return(await _repository.Create(company)).ToDTO();
+            var company = _mapper.Map<Company>(model);
+            await _repository.Create(company);
+            return _mapper.Map<CompanyDTO>(company);
         }
         public async Task<CompanyDTO> EditCompany(CompanyDTO model)
         {
@@ -32,9 +36,14 @@ namespace BusinessLayer.Services
             {
                 throw new ArgumentNullException(nameof(model), "model is empty");
             }
-            var company = model.ToEntity();
+            var company = _mapper.Map<Company>(model);
             await _repository.Update(company);
-            return company.ToDTO();
+            return _mapper.Map<CompanyDTO>(company);
+        }
+        public async Task<IEnumerable<CompanyDTO>> GetCompany()
+        {
+            var company = _mapper.Map<IEnumerable<CompanyDTO>>(await _repository.GetAll<Company>());
+            return company;
         }
         public async Task<AdvertDTO> DeleteAdvert(AdvertDTO model)
         {
@@ -42,9 +51,9 @@ namespace BusinessLayer.Services
             {
                 throw new ArgumentNullException(nameof(model), "model is empty");
             }
-            var advert = model.ToEntity();
+            var advert = _mapper.Map<Advert>(model);
             await _repository.Delete(advert);
-            return advert.ToDTO();
+            return _mapper.Map<AdvertDTO>(advert);
         }
         public async Task<AdvertDTO> EditAdvert(AdvertDTO model)
         {
@@ -52,9 +61,9 @@ namespace BusinessLayer.Services
             {
                 throw new ArgumentNullException(nameof(model), "model is empty");
             }
-            var advert = model.ToEntity();
+            var advert = _mapper.Map<Advert>(model);
             await _repository.Update(advert);
-            return advert.ToDTO();
+            return _mapper.Map<AdvertDTO>(advert);
         }
         public async Task<AdvertDTO> AddAdvert(AdvertDTO model)
         {
@@ -62,8 +71,19 @@ namespace BusinessLayer.Services
             {
                 throw new ArgumentNullException(nameof(model), "model is empty");
             }
-            var advert = model.ToEntity();
-            return (await _repository.Create(advert)).ToDTO();
+            var advert = _mapper.Map<Advert>(model);
+            await _repository.Create(advert);
+            return _mapper.Map<AdvertDTO>(advert);
+        }
+        public async Task<IEnumerable<AdvertDTO>> GetAdvert()
+        {
+            var adverts = _mapper.Map<IEnumerable<AdvertDTO>>(await _repository.GetAll<Advert>());
+            return adverts;
+        }
+        public async Task<IEnumerable<CategoryDTO>> GetCategory()
+        {
+            var categoty = _mapper.Map<IEnumerable<CategoryDTO>>(await _repository.GetAll<Category>());
+            return categoty;
         }
     }
 }
