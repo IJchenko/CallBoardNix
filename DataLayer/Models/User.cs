@@ -9,7 +9,7 @@ namespace DataLayer.Models
     {
         public Guid Id { get; set; }
         [Required]
-        public StatusType Status { get; set; }
+        public int Status { get; set; }
         [Required]
         [StringLength(35, ErrorMessage = "You must fill your name", MinimumLength = 2)]
         public string Name { get; set; }
@@ -28,10 +28,5 @@ namespace DataLayer.Models
         public List<Resume> Resumes { get; set; }
         public List<Company> Companies { get; set; }
         public List<Review> Reviews { get; set; }
-    }
-    public enum StatusType
-    {
-        Worker,
-        Employer
     }
 }
