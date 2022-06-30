@@ -14,5 +14,8 @@ namespace BusinessLayer.Interfaces
         Task<AdvertDTO> AddAdvert(AdvertDTO model);//добавить объявление 
         Task<AdvertDTO> DeleteAdvert(AdvertDTO model);//удалить объявление 
         Task<AdvertDTO> EditAdvert(AdvertDTO model);//изменить объявление 
+        Task<IEnumerable<AdvertDTO>> GetAdvert();
+        Task<IEnumerable<CompanyDTO>> GetCompany();
+        Task<IEnumerable<CategoryDTO>> GetCategory();
     }
 }

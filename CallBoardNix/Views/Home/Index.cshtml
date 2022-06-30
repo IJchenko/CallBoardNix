@@ -1,38 +1,9 @@
-﻿@{
+﻿@model List<AdvertView>
+@{
     ViewData["Title"] = "Home Page";
-    string[] name = { ".Net", "Java","PHP"};
-    string[] salary = {"3000","2000","1500" };
-    string[] desc = {"text net","text java","text PHP" };
-
 }
 @using BusinessLayer.DTO
 @using CallBoardNix.Extentions.Helpers
 
 <br>
-@Html.CreateList(name, salary, desc)
-
-@*    
-    //это массив строк хелпера CreateList
-    <ul>
-        <li class="border mb-3 overflow-scroll" style="margin-right:26px; max-height: 150px; overflow-x:hidden"> 
-            <div class="row p-2">
-                <div class="col">
-                    <h5>NameAdvert</h5>
-                    <a asp-area = '' asp-controller = 'Home' asp-action = 'Advert' >ddd</a>
-                </div>
-                <div class="col">
-                    <h5>Salary</h5>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <h6 class="p-2">
-                       Description ffffffffffffffffffffDescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription escription ffffffffffffffffffffDescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription fffffffffffffffffescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription fffffffffffffffffescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription fffffffffffffffffescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription fffffffffffffffffescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription fffffffffffffffffescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription fffffffffffffffffescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription ffffffffffffffffffffDescription fffffffffffffffff ffffffffffffffffffff
-                    </h6>
-                </div>
-            </div>
-        
-        </li>
-    </ul>*@
-
-    <a asp-area = '' asp-controller = 'Home' asp-action = 'Advert' >Test Advert Page</a>
+@Html.CreateList(Model)

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220622064413_initmigrate")]
-    partial class initmigrate
+    [Migration("20220628100400_initCallBoard")]
+    partial class initCallBoard
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -1,12 +1,23 @@
+using BusinessLayer.Extension;
+using BusinessLayer.Interfaces;
+using BusinessLayer.Services;
+using CallBoardNix.Extentions;
 using DataLayer.EF;
+using DataLayer.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-string connection = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(
+    builder.Configuration.GetConnectionString("DefaultConnection")
+    ));
+
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile), typeof(AutoMapperViewProfile));
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<IRepository, GenericRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

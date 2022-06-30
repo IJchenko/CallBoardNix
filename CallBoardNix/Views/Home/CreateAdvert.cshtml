@@ -1,0 +1,36 @@
+﻿@model CallBoardNix.Models.AdvertView
+@{
+    ViewData["Title"] = "";  
+    List<CategoryView> categories = new List<CategoryView>();
+    categories = ViewBag.Categories;
+}
+<form asp-controller="Home" asp-action="Privacy" method="post">
+            
+        <div class="form-group">
+            <label asp-for="NameAdvert" class="control-label"></label>
+            <input asp-for="NameAdvert" class="form-control" />
+        </div>
+            <div class="form-group">
+            <label asp-for="Description" class="control-label"></label>
+            <input asp-for="Description" class="form-control" />
+        </div>
+            <div class="form-group">
+            <label asp-for="Requirements" class="control-label"></label>
+            <input asp-for="Requirements" class="form-control" />
+        </div>
+            <div class="form-group">
+            <label asp-for="Salary" class="control-label"></label>
+            <input asp-for="Salary" class="form-control" />
+        </div>
+
+        <select asp-for="category">
+        @foreach(var item in categories)
+        {
+            <option value="{@item.CategoryName}">{@item.CategoryName}</option>
+        }
+        </select>
+                
+        <div class="form-group text-center">
+            <input type="submit" value="Sign up" class="btn btn-outline-dark btn-sm" />
+        </div><br>
+    </form>

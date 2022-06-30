@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataLayer.Migrations
 {
-    public partial class initmigrate : Migration
+    public partial class initCallBoard : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

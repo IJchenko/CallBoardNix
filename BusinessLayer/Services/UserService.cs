@@ -1,6 +1,7 @@
-﻿using BusinessLayer.DTO;
-using BusinessLayer.Extension.Mappers;
+﻿using AutoMapper;
+using BusinessLayer.DTO;
 using BusinessLayer.Interfaces;
+using DataLayer.Models;
 using DataLayer.Repository;
 using System;
 using System.Collections.Generic;
@@ -13,18 +14,11 @@ namespace BusinessLayer.Services
     public class UserService : IUserService
     {
         private readonly IRepository _repository;
-        public UserService(IRepository repository)
+        private readonly IMapper _mapper;
+        public UserService(IRepository repository, IMapper mapper)
         {
             _repository = repository;
-        }
-        public async Task<ResumeDTO> AddResume(ResumeDTO model)
-        {
-            if (model == null)
-            {
-                throw new ArgumentNullException(nameof(model), "model is empty");
-            }
-            var resume = model.ToEntity();
-            return (await _repository.Create(resume)).ToDTO();
+            _mapper = mapper;
         }
         public async Task<ReviewDTO> AddReviewCompany(ReviewDTO model)
         {
@@ -32,8 +26,9 @@ namespace BusinessLayer.Services
             {
                 throw new ArgumentNullException(nameof(model), "model is empty");
             }
-            var review = model.ToEntity();
-            return (await _repository.Create(review)).ToDTO();
+            var review = _mapper.Map<Review>(model);
+            await _repository.Create(review);
+            return _mapper.Map<ReviewDTO>(review);
         }
         public async Task<UserDTO> AddUser(UserDTO model)
         {
@@ -41,18 +36,9 @@ namespace BusinessLayer.Services
             {
                 throw new ArgumentNullException(nameof(model), "model is empty");
             }
-            var user = model.ToEntity();
-            return (await _repository.Create(user)).ToDTO();
-        }
-        public async Task<ResumeDTO> EditResume(ResumeDTO model)
-        {
-            if (model == null)
-            {
-                throw new ArgumentNullException(nameof(model), "model is empty");
-            }
-            var resume = model.ToEntity();
-            await _repository.Update(resume);
-            return resume.ToDTO();
+            var user = _mapper.Map<User>(model);
+            await _repository.Create(user);
+            return _mapper.Map<UserDTO>(user);
         }
         public async Task<UserDTO> EditUser(UserDTO model)
         {
@@ -60,9 +46,29 @@ namespace BusinessLayer.Services
             {
                 throw new ArgumentNullException(nameof(model), "model is empty");
             }
-            var user = model.ToEntity();
+            var user = _mapper.Map<User>(model);
             await _repository.Update(user);
-            return user.ToDTO();
+            return _mapper.Map<UserDTO>(user);
+        }
+        public async Task<ResumeDTO> AddResume(ResumeDTO model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model), "model is empty");
+            }
+            var resume = _mapper.Map<Resume>(model);
+            await _repository.Create(resume);
+            return _mapper.Map<ResumeDTO>(resume);
+        }
+        public async Task<ResumeDTO> EditResume(ResumeDTO model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model), "model is empty");
+            }
+            var resume = _mapper.Map<Resume>(model);
+            await _repository.Update(resume);
+            return _mapper.Map<ResumeDTO>(resume);
         }
     }
 }
