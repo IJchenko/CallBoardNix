@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataLayer.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,7 @@ namespace BusinessLayer.DTO
         public string Description { get; set; }
         public string Requirements { get; set; }
         public string Salary { get; set; }
+        public Company company { get; set; }
+        public Category category { get; set; }
     }
 }
