@@ -16,13 +16,8 @@ namespace BusinessLayer.DTO
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public List<Resume> Resumes { get; set; }
-        public List<Company> Companies { get; set; }
-        public List<Review> Reviews { get; set; }
-    }
-    public enum StatusType
-    {
-        Worker,
-        Employer
+        public Guid IdResumes { get; set; }
+        public Guid IdCompany { get; set; }
+        public Guid Review { get; set; }
     }
 }
