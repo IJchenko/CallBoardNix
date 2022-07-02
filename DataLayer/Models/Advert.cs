@@ -7,7 +7,8 @@ namespace DataLayer.Models
 {
     public class Advert
     {
-        public Guid Id { get; set; }
+        [Key]
+        public Guid IdAdvert { get; set; }
         [Required]
         [StringLength(75, ErrorMessage = "The title must be in the range from 2 to 75 symbols", MinimumLength = 2)]
         public string NameAdvert { get; set; }
@@ -16,7 +17,7 @@ namespace DataLayer.Models
         [StringLength(2000, MinimumLength = 0)]
         public string Requirements { get; set; }
         public string Salary { get; set; }
-        public Company company { get; set; }
-        public Category category { get; set; }
+        public Guid IdCompany { get; set; }
+        public Guid IdCategory { get; set; }
     }
 }

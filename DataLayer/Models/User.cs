@@ -7,7 +7,8 @@ namespace DataLayer.Models
 {
     public class User
     {
-        public Guid Id { get; set; }
+        [Key]
+        public Guid IdUser { get; set; }
         [Required]
         public int Status { get; set; }
         [Required]
@@ -25,8 +26,8 @@ namespace DataLayer.Models
         [Required]
         [StringLength(100, ErrorMessage = "The password is easy. Must be between 10 and 100 characters", MinimumLength = 10)]
         public string Password { get; set; }
-        public List<Resume> Resumes { get; set; }
-        public List<Company> Companies { get; set; }
-        public List<Review> Reviews { get; set; }
+        public Guid IdResumes { get; set; }
+        public Guid IdCompany { get; set; }
+        public Guid Review { get; set; }
     }
 }
