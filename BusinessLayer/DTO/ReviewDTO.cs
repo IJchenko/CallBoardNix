@@ -9,9 +9,10 @@ namespace BusinessLayer.DTO
 {
     public class ReviewDTO
     {
-        public Guid Id { get; set; }
+        public Guid IdReview { get; set; }
         public string Description { get; set; }
         public int Mark { get; set; }
-        public List<User> Users { get; set; }
+        public Guid IdUser { get; set; }
+        public Guid IdCompany { get; set; }
     }
 }

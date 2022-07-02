@@ -8,7 +8,7 @@ namespace CallBoardNix.Models
         public string? Description { get; set; }
         public string? Requirements { get; set; }
         public string? Salary { get; set; }
-        public Company? company { get; set; }
-        public Category? category { get; set; }
+        public Guid IdCompany { get; set; }
+        public Guid IdCategory { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using CallBoardNix.Models;
 using DataLayer.EF;
 using DataLayer.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
@@ -24,34 +25,29 @@ namespace CallBoardNix.Controllers
             _companyService = companyService;
         }
         [HttpGet]
-        public async Task<ActionResult<List<AdvertView>>> Index()//повертає список всіх оголошень
+        public async Task<ActionResult> Index()//повертає список всіх оголошень
         {
-            var models = await _companyService.GetAdvert();
+            var model = await _companyService.GetAdvert();
             var adverts = new List<AdvertView>();
-            foreach(var advert in models)
+            foreach(var advert in model)
             {
                 adverts.Add(_mapper.Map<AdvertView>(advert));
             }
             return View(adverts);
         }
         [HttpGet]
-        public async Task<ActionResult<List<CategoryView>>> CreateAdvert()//повертає список всіх категорій
+        public async Task<ActionResult> CreateAdvert()//повертає список всіх категорій
         {
-            var models = await _companyService.GetCategory();
-            var categories = new List<CategoryView>();
-            foreach(var category in models)
-            {
-                categories.Add(_mapper.Map<CategoryView>(category));
-            }
-            ViewBag.Categories = categories;
+            var model = await _companyService.GetCategory();
+            ViewBag.Categories = new SelectList(model, "IdCategory", "CategoryName");
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> CreateAdvert(AdvertView advert)//створює оголошення(не створює атрибут категорії)
+        public async Task<IActionResult> CreateAdvert(AdvertView advert)//створює оголошення
         {
             var model = _mapper.Map<AdvertDTO>(advert);
             await _companyService.AddAdvert(model);
-            return View(advert);
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult Register()
         {

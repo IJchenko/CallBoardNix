@@ -1,9 +1,7 @@
 ﻿@using CallBoardNix.Models
 @model CallBoardNix.Models.AdvertView
 @{
-    ViewData["Title"] = "";  
-    List<CategoryView> categories = new List<CategoryView>();
-    categories = ViewBag.Categories;
+    ViewData["Title"] = "Create Advert";  
 }
 <form asp-controller="Home" asp-action="CreateAdvert" method="post">
             
@@ -24,13 +22,8 @@
             <input asp-for="Salary" class="form-control" />
         </div>
 
-@*        <select asp-for="category">
-        @foreach(var item in categories)
-        {
-            <option value="{@item.CategoryName}">{@item.CategoryName}</option>
-        }
-        </select>*@
-                
+        <select class="form-select" required asp-for="IdCategory" asp-items="ViewBag.Categories"></select>
+
         <div class="form-group text-center">
             <input type="submit" value="Sign up" class="btn btn-outline-dark btn-sm" />
         </div><br>
