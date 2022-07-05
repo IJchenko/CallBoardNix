@@ -9,7 +9,6 @@ namespace CallBoardNix.Extentions
     {
         public AutoMapperViewProfile()
         {
-            CreateMap<UserDTO, RegisterModel>().ReverseMap();
             CreateMap<AdvertDTO, AdvertView>().ReverseMap();
             CreateMap<CategoryDTO, CategoryView>().ReverseMap();
         }
