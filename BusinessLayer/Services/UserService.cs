@@ -30,26 +30,6 @@ namespace BusinessLayer.Services
             await _repository.Create(review);
             return _mapper.Map<ReviewDTO>(review);
         }
-        public async Task<UserDTO> AddUser(UserDTO model)
-        {
-            if(model == null)
-            {
-                throw new ArgumentNullException(nameof(model), "model is empty");
-            }
-            var user = _mapper.Map<User>(model);
-            await _repository.Create(user);
-            return _mapper.Map<UserDTO>(user);
-        }
-        public async Task<UserDTO> EditUser(UserDTO model)
-        {
-            if (model == null)
-            {
-                throw new ArgumentNullException(nameof(model), "model is empty");
-            }
-            var user = _mapper.Map<User>(model);
-            await _repository.Update(user);
-            return _mapper.Map<UserDTO>(user);
-        }
         public async Task<ResumeDTO> AddResume(ResumeDTO model)
         {
             if (model == null)

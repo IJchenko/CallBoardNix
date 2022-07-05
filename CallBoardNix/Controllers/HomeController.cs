@@ -34,33 +34,7 @@ namespace CallBoardNix.Controllers
                 adverts.Add(_mapper.Map<AdvertView>(advert));
             }
             return View(adverts);
-        }
-        [HttpGet]
-        public async Task<ActionResult> CreateAdvert()//повертає список всіх категорій
-        {
-            var model = await _companyService.GetCategory();
-            ViewBag.Categories = new SelectList(model, "IdCategory", "CategoryName");
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> CreateAdvert(AdvertView advert)//створює оголошення
-        {
-            var model = _mapper.Map<AdvertDTO>(advert);
-            await _companyService.AddAdvert(model);
-            return RedirectToAction("Index", "Home");
-        }
-        public IActionResult Register()
-        {
-            return View();
-        }
-        public IActionResult Advert()
-        {
-            return View();
-        }
-        public IActionResult Login()
-        {
-            return View();
-        }      
+        }     
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
