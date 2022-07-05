@@ -18,7 +18,6 @@ namespace BusinessLayer.Extension
             CreateMap<Company, CompanyDTO>().ReverseMap();
             CreateMap<Resume, ResumeDTO>().ReverseMap();
             CreateMap<Review, ReviewDTO>().ReverseMap();
-            CreateMap<User, UserDTO>().ReverseMap();
         }
     }
 }
