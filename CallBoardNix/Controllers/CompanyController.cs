@@ -1,11 +1,19 @@
 ﻿using AutoMapper;
 using BusinessLayer.DTO;
 using BusinessLayer.Interfaces;
+using CallBoardNix.Extentions;
 using CallBoardNix.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+
 namespace CallBoardNix.Controllers
 {
+    [Authorize(Roles = "Employer")]
     public class CompanyController : Controller
     {
         private readonly ICompanyService _companyService;
@@ -15,6 +23,7 @@ namespace CallBoardNix.Controllers
             _mapper = mapper;
             _companyService = companyService;
         }
+        
         [HttpGet]
         public async Task<ActionResult> CreateAdvert()//повертає список всіх категорій
         {

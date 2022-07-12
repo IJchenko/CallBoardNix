@@ -4,6 +4,7 @@ using BusinessLayer.Interfaces;
 using CallBoardNix.Models;
 using DataLayer.EF;
 using DataLayer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,8 @@ namespace CallBoardNix.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()//повертає список всіх оголошень
         {
+            string? token = HttpContext.Session.GetString("token");
+           
             var model = await _companyService.GetAdvert();
             var adverts = new List<AdvertView>();
             foreach(var advert in model)
