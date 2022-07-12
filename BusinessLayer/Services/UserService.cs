@@ -50,5 +50,23 @@ namespace BusinessLayer.Services
             await _repository.Update(resume);
             return _mapper.Map<ResumeDTO>(resume);
         }
+        public async Task<UserDTO> GetUserByLogin(string userName)
+        {
+            var users = _repository.GetAll<User>();
+            User res = new User();
+            foreach (var user in await users)
+            {
+                if(user.UserName == userName)
+                {
+                    res = user;
+                    break;
+                }
+            }
+            if (res == null)
+            {
+                throw new ArgumentNullException(nameof(res), "model is empty");
+            }
+            return _mapper.Map<UserDTO>(res);
+        }
     }
 }

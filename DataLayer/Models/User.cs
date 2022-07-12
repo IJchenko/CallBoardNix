@@ -9,7 +9,7 @@ namespace DataLayer.Models
     public class User : IdentityUser
     {
         [Required]
-        public int Status { get; set; }
+        public string Status { get; set; }
         [Required]
         [StringLength(35, ErrorMessage = "You must fill your name", MinimumLength = 2)]
         public string Name { get; set; }

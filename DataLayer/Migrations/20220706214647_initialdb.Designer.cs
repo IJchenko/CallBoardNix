@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220705072909_init")]
-    partial class init
+    [Migration("20220706214647_initialdb")]
+    partial class initialdb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -199,8 +199,9 @@ namespace DataLayer.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Surname")
                         .IsRequired()
