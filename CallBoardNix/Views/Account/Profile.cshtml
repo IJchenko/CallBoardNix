@@ -1,4 +1,4 @@
-﻿@model string
+﻿@model CallBoardNix.Models.UserViewModel
 @{
     Layout = "/Views/Shared/_Layout.cshtml";
 }
@@ -6,3 +6,11 @@
 <form method="post" asp-action="Logout" asp-controller="Account">
     <input class="btn btn-outline-dark btn-sm" style="border-radius: 0px;" type="submit" value="Logout"/>
 </form>
+
+<h5>
+    @Model.Name<br>
+    @Model.Surname<br>
+    @Model.PhoneNumber<br>
+    @User.Identity.Name<br>
+    @Model.Email<br>
+</h5>

@@ -1,9 +1,50 @@
-﻿@model List<AdvertView>
+﻿@model CallBoardNix.Models.ListOfAdvert
 @{
     ViewData["Title"] = "Home Page";
 }
 @using BusinessLayer.DTO
-@using CallBoardNix.Extentions.Helpers
-
-<br>
-@Html.CreateList(Model)
+<ul>
+    @foreach(var item in Model.adverts)
+    {
+    <li class="border mb-3 overflow - scroll" style="margin-right:26px;max-height:150px;overflow-x:hidden">
+        <div class="row p-2"> 
+            <div class="col"> 
+                <a asp-action="AdvertInfo" asp-route-IdCompany="@item.NameAdvert">@item.NameAdvert</a> 
+            </div>
+        <div class="col"> 
+            <h5>@item.Salary</h5> 
+        </div> 
+        </div>
+        <div class="row">
+            <div class="col"> 
+                <h6 class="p - 2">@item.Description</h6> 
+            </div> 
+        </div> 
+    </li>
+    }          
+</ul>
+<nav>
+    <ul class="pagination">     
+    @{if(Model.pagination.HasPreviousPage && Model.pagination.HasNextPage)
+    {
+       <li class="page-item">
+            <a class="page-link" asp-action="Index" asp-route-page="@(Model.pagination.PageNumber-1)">Prev</a>
+       </li> 
+       <li class="page-item">
+            <a class="page-link" asp-action="Index" asp-route-page="@(Model.pagination.PageNumber+1)">Next</a>
+       </li>
+    }
+    else if(Model.pagination.HasPreviousPage)
+    {
+       <li class="page-item">
+            <a class="page-link" asp-action="Index" asp-route-page="@(Model.pagination.PageNumber-1)">Prev</a>
+       </li> 
+    }
+    else
+    {
+        <li class="page-item">
+            <a class="page-link" asp-action="Index" asp-route-page="@(Model.pagination.PageNumber+1)">Next</a>
+        </li>
+    }}
+    </ul>
+</nav>
