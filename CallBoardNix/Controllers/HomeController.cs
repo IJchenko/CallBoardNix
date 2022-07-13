@@ -26,18 +26,31 @@ namespace CallBoardNix.Controllers
             _companyService = companyService;
         }
         [HttpGet]
-        public async Task<ActionResult> Index()//повертає список всіх оголошень
+        public async Task<ActionResult> Index(int page = 1)//повертає список всіх оголошень
         {
             string? token = HttpContext.Session.GetString("token");
-           
+            int pageSize = 2;
             var model = await _companyService.GetAdvert();
             var adverts = new List<AdvertView>();
-            foreach(var advert in model)
+            foreach (var advert in model)
             {
                 adverts.Add(_mapper.Map<AdvertView>(advert));
             }
-            return View(adverts);
-        }     
+            var count = adverts.Count();
+            var items = adverts.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            ListOfAdvert listOfAdvert = new ListOfAdvert
+            (
+                new PaginationAdvertModel(count, page, pageSize),
+                items
+            );
+            return View(listOfAdvert);
+        }    
+        [HttpGet]
+        public IActionResult AdvertInfo(string IdCompany)
+        {
+            ViewBag.Company = IdCompany;
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
