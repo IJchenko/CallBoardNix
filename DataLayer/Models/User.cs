@@ -16,6 +16,8 @@ namespace DataLayer.Models
         [Required]
         [StringLength(35, ErrorMessage = "You must fill your surname", MinimumLength = 2)]
         public string Surname { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
         public Guid IdResumes { get; set; }
         public Guid IdCompany { get; set; }
     }
