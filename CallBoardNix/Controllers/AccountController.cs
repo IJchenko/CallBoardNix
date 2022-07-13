@@ -23,7 +23,6 @@ namespace CallBoardNix.Controllers
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
-
         public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper, IUserService userService)
         {
             _userManager = userManager;
@@ -84,9 +83,10 @@ namespace CallBoardNix.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
                 if (result.Succeeded)
                 {
-                    IActionResult response = Unauthorized();
+                    //IActionResult response = Unauthorized();
                     var user = _mapper.Map<User>(await _userService.GetUserByLogin(model.UserName));
                     var token = CreateToken(user.Status);
+
                     HttpContext.Session.SetString("Token", token);
                     return RedirectToAction("Index", "Home");
                 }
@@ -102,9 +102,21 @@ namespace CallBoardNix.Controllers
             return RedirectToAction("Index", "Home");
         }
         [HttpGet]
-        public IActionResult Profile()
+        public async Task<IActionResult> Profile()
         {
-            return View();
+            var user = _mapper.Map<User>(await _userService.GetUserByLogin(User.Identity.Name));
+            UserViewModel resul = new UserViewModel
+            {
+                Name = user.Name,
+                Surname = user.Surname,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                IdCompany = user.IdCompany,
+                IdResumes = user.IdResumes,
+                UserName = user.UserName
+            };
+
+            return View(resul);
         }
         public string CreateToken(string role)
         {

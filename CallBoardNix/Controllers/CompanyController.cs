@@ -3,6 +3,7 @@ using BusinessLayer.DTO;
 using BusinessLayer.Interfaces;
 using CallBoardNix.Extentions;
 using CallBoardNix.Models;
+using DataLayer.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,11 +18,13 @@ namespace CallBoardNix.Controllers
     public class CompanyController : Controller
     {
         private readonly ICompanyService _companyService;
+        private readonly IUserService _userService;
         private readonly IMapper _mapper;
-        public CompanyController(IMapper mapper, ICompanyService companyService)
+        public CompanyController(IMapper mapper, ICompanyService companyService, IUserService userService)
         {
             _mapper = mapper;
             _companyService = companyService;
+            _userService = userService;
         }
         
         [HttpGet]
@@ -37,6 +40,41 @@ namespace CallBoardNix.Controllers
             var model = _mapper.Map<AdvertDTO>(advert);
             await _companyService.AddAdvert(model);
             return RedirectToAction("Index", "Home");
+        }
+        [HttpGet]
+        public async Task<ActionResult> Company()
+        {
+            var user = _mapper.Map<User>(await _userService.GetUserByLogin(User.Identity.Name));
+            UserViewModel UserModel = new UserViewModel
+            {
+                Name = user.Name,
+                Surname = user.Surname,
+                IdCompany = user.IdCompany,
+            };
+            if (UserModel.IdCompany != null)
+            {
+                var company = await _companyService.GetCompanyById(UserModel.IdCompany);
+                CompanyView companyResult = new CompanyView
+                {
+                    CompanyName = company.CompanyName,
+                    Description = company.Description,
+                    Link = company.Link
+                };
+                CompanyResultModel result = new CompanyResultModel
+                (
+                    UserModel,
+                    companyResult
+                );
+                return View(result);
+            }
+            else
+            {
+                CompanyResultModel result = new CompanyResultModel
+                (
+                    UserModel
+                );
+                return View(result);
+            }         
         }
     }
 }
