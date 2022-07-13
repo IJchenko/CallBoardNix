@@ -85,5 +85,24 @@ namespace BusinessLayer.Services
             var categoty = _mapper.Map<IEnumerable<CategoryDTO>>(await _repository.GetAll<Category>());
             return categoty;
         }
+
+        public async Task<CompanyDTO> GetCompanyById(Guid id)
+        {
+            var companys = _repository.GetAll<Company>();
+            Company res = new Company();
+            foreach (var company in await companys)
+            {
+                if (company.IdCompany == id)
+                {
+                    res = company;
+                    break;
+                }
+            }
+            if (res == null)
+            {
+                throw new ArgumentNullException(nameof(res), "model is empty");
+            }
+            return _mapper.Map<CompanyDTO>(res);
+        }
     }
-}
+}            
