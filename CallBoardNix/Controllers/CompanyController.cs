@@ -37,7 +37,13 @@ namespace CallBoardNix.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAdvert(AdvertView advert)//створює оголошення
         {
+            var user = _mapper.Map<User>(await _userService.GetUserByLogin(User.Identity.Name));
+            UserViewModel UserModel = new UserViewModel
+            {
+                IdCompany = user.IdCompany,
+            };
             var model = _mapper.Map<AdvertDTO>(advert);
+            model.IdCompany = user.IdCompany;
             await _companyService.AddAdvert(model);
             return RedirectToAction("Index", "Home");
         }
@@ -47,21 +53,12 @@ namespace CallBoardNix.Controllers
             var user = _mapper.Map<User>(await _userService.GetUserByLogin(User.Identity.Name));
             UserViewModel UserModel = new UserViewModel
             {
-                Name = user.Name,
-                Surname = user.Surname,
                 IdCompany = user.IdCompany,
             };
-            var companys = await _companyService.GetCompany();
-            var listcompany = new List<CompanyView>();
-            foreach (var item in companys)
-            {
-                listcompany.Add(_mapper.Map<CompanyView>(item));
-            }
-
+            var companys = _mapper.Map<List<CompanyView>>(await _companyService.GetCompany());
             int pageSize = 6;
-            var count = listcompany.Count();
-            var items = listcompany.Skip((page - 1) * pageSize).Take(pageSize).ToList();
-
+            var count = companys.Count();
+            var items = companys.Skip((page - 1) * pageSize).Take(pageSize).ToList();
             if (UserModel.IdCompany != null)
             {
                 var company = await _companyService.GetCompanyById(UserModel.IdCompany);
@@ -86,7 +83,7 @@ namespace CallBoardNix.Controllers
                 CompanyResultModel result = new CompanyResultModel
                 (
                     UserModel,
-                    listcompany,
+                    items,
                     new PaginationModel(count, page, pageSize)
                 );
                 return View(result);
@@ -103,9 +100,7 @@ namespace CallBoardNix.Controllers
             var model = _mapper.Map<CompanyDTO>(company);
             model.IdCompany = Guid.NewGuid();
             await _companyService.AddCompany(model);
-
             await _userService.EditUserCompany(User.Identity.Name, model.IdCompany);
-
             return RedirectToAction("Company", "Company");
         }
     }

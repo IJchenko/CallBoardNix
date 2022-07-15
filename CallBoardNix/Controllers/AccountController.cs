@@ -83,10 +83,8 @@ namespace CallBoardNix.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
                 if (result.Succeeded)
                 {
-                    //IActionResult response = Unauthorized();
                     var user = _mapper.Map<User>(await _userService.GetUserByLogin(model.UserName));
                     var token = CreateToken(user.Status);
-
                     HttpContext.Session.SetString("Token", token);
                     return RedirectToAction("Index", "Home");
                 }

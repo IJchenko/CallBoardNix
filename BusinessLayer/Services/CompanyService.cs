@@ -40,9 +40,9 @@ namespace BusinessLayer.Services
             await _repository.Update(company);
             return _mapper.Map<CompanyDTO>(company);
         }
-        public async Task<IEnumerable<CompanyDTO>> GetCompany()
+        public async Task<List<CompanyDTO>> GetCompany()
         {
-            var company = _mapper.Map<IEnumerable<CompanyDTO>>(await _repository.GetAll<Company>());
+            var company = _mapper.Map<List<CompanyDTO>>(await _repository.GetAll<Company>());
             return company;
         }
         public async Task<AdvertDTO> DeleteAdvert(AdvertDTO model)
@@ -75,14 +75,14 @@ namespace BusinessLayer.Services
             await _repository.Create(advert);
             return _mapper.Map<AdvertDTO>(advert);
         }
-        public async Task<IEnumerable<AdvertDTO>> GetAdvert()
+        public async Task<List<AdvertDTO>> GetAdvert()
         {
-            var adverts = _mapper.Map<IEnumerable<AdvertDTO>>(await _repository.GetAll<Advert>());
+            var adverts = _mapper.Map<List<AdvertDTO>>(await _repository.GetAll<Advert>());
             return adverts;
         }
-        public async Task<IEnumerable<CategoryDTO>> GetCategory()
+        public async Task<List<CategoryDTO>> GetCategory()
         {
-            var categoty = _mapper.Map<IEnumerable<CategoryDTO>>(await _repository.GetAll<Category>());
+            var categoty = _mapper.Map<List<CategoryDTO>>(await _repository.GetAll<Category>());
             return categoty;
         }
 
