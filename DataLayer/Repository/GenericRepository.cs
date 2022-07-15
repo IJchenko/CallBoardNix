@@ -21,7 +21,6 @@ namespace DataLayer.Repository
             await _dbContext.SaveChangesAsync();
             return entity;
         }
-
         public async Task Delete<TEntity>(TEntity entity) where TEntity : class
         {
             var entit = await _dbContext.FindAsync<TEntity>();
@@ -31,12 +30,14 @@ namespace DataLayer.Repository
                 await _dbContext.SaveChangesAsync();
             }
         }
-
-        public async Task<IEnumerable<TEntity>> GetAll<TEntity>() where TEntity : class
+        public async Task<List<TEntity>> GetAll<TEntity>() where TEntity : class
         {
             return await _dbContext.Set<TEntity>().ToListAsync();
         }
-
+        public async Task GetById<TEntity>(Guid guid) where TEntity : class
+        {
+            await _dbContext.FindAsync<TEntity>(guid);
+        }
         public async Task Update<TEntity>(TEntity entity) where TEntity : class
         {
             _dbContext.Update<TEntity>(entity);
