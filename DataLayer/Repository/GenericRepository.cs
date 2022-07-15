@@ -39,7 +39,7 @@ namespace DataLayer.Repository
 
         public async Task Update<TEntity>(TEntity entity) where TEntity : class
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;
+            _dbContext.Update<TEntity>(entity);
             await _dbContext.SaveChangesAsync();
         }
     }
