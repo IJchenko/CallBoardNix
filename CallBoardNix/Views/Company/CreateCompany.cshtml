@@ -1,0 +1,34 @@
+﻿@using CallBoardNix.Models
+@model CallBoardNix.Models.CompanyView
+@{
+    ViewData["Title"] = "Create Company";  
+}
+<div class="ps-3 pe-3">
+<h5 class="text-center mt-4">
+    Job creation...
+</h5>
+<form asp-controller="Company" asp-action="CreateCompany" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group mt-4">
+            <label asp-for="CompanyName" class="control-label"></label>
+            <input asp-for="CompanyName" required class="form-control" />
+            <span asp-validation-for="CompanyName" class="text-danger"></span>
+        </div>
+            <div class="form-group">
+            <label asp-for="Description" class="control-label"></label>
+            <textarea asp-for="Description" required class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+            <div class="form-group">
+            <label asp-for="Link" class="control-label"></label>
+            <textarea asp-for="Link" required class="form-control"></textarea>
+            <span asp-validation-for="Link" class="text-danger"></span>         
+        </div>
+        <div class="form-group text-center mt-4">
+            <input type="submit" value="Create" class="btn btn-outline-dark btn-sm" />
+        </div><br>
+    </form>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
