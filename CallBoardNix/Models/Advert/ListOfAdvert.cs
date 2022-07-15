@@ -3,8 +3,8 @@
     public class ListOfAdvert
     {
         public List<AdvertView>? adverts { get; set;}
-        public PaginationAdvertModel? pagination { get; set;}
-        public ListOfAdvert(PaginationAdvertModel paginationAdvertModel, List<AdvertView> adverts)
+        public PaginationModel? pagination { get; set;}
+        public ListOfAdvert(PaginationModel paginationAdvertModel, List<AdvertView> adverts)
         {
             this.pagination = paginationAdvertModel;
             this.adverts = adverts;
