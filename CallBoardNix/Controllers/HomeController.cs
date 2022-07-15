@@ -29,7 +29,7 @@ namespace CallBoardNix.Controllers
         public async Task<ActionResult> Index(int page = 1)//повертає список всіх оголошень
         {
             string? token = HttpContext.Session.GetString("token");
-            int pageSize = 2;
+            int pageSize = 6;
             var model = await _companyService.GetAdvert();
             var adverts = new List<AdvertView>();
             foreach (var advert in model)
@@ -40,7 +40,7 @@ namespace CallBoardNix.Controllers
             var items = adverts.Skip((page - 1) * pageSize).Take(pageSize).ToList();
             ListOfAdvert listOfAdvert = new ListOfAdvert
             (
-                new PaginationAdvertModel(count, page, pageSize),
+                new PaginationModel(count, page, pageSize),
                 items
             );
             return View(listOfAdvert);

@@ -11,6 +11,7 @@ namespace CallBoardNix.Extentions
         {
             CreateMap<AdvertDTO, AdvertView>().ReverseMap();
             CreateMap<CategoryDTO, CategoryView>().ReverseMap();
+            CreateMap<CompanyDTO, CompanyView>().ReverseMap();
         }
     }
 }

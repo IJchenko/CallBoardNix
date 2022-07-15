@@ -3,10 +3,10 @@
     ViewData["Title"] = "Home Page";
 }
 @using BusinessLayer.DTO
-<ul>
+<ul style="height: 690px">
     @foreach(var item in Model.adverts)
     {
-    <li class="border mb-3 overflow - scroll" style="margin-right:26px;max-height:150px;overflow-x:hidden">
+    <li class="border mb-3" style="margin-right:26px;height:100px;overflow-wrap:anywhere; overflow:auto; overflow-x:hidden">
         <div class="row p-2"> 
             <div class="col"> 
                 <a asp-action="AdvertInfo" asp-route-IdCompany="@item.NameAdvert">@item.NameAdvert</a> 
@@ -17,34 +17,35 @@
         </div>
         <div class="row">
             <div class="col"> 
-                <h6 class="p - 2">@item.Description</h6> 
+                <h6 class="ms-2 me-2">@item.Description</h6> 
             </div> 
         </div> 
     </li>
     }          
 </ul>
-<nav>
-    <ul class="pagination">     
+<nav style="width:100%">
+    <ul class="pagination justify-content-center">     
     @{if(Model.pagination.HasPreviousPage && Model.pagination.HasNextPage)
     {
-       <li class="page-item">
-            <a class="page-link" asp-action="Index" asp-route-page="@(Model.pagination.PageNumber-1)">Prev</a>
+       <li class="page-item pe-1">
+            <a class="btn btn-outline-dark btn-sm" style="border-radius: 0px;" asp-action="Index" asp-route-page="@(Model.pagination.PageNumber-1)">Prev</a>
        </li> 
        <li class="page-item">
-            <a class="page-link" asp-action="Index" asp-route-page="@(Model.pagination.PageNumber+1)">Next</a>
+            <a class="btn btn-outline-dark btn-sm" style="border-radius: 0px;" asp-action="Index" asp-route-page="@(Model.pagination.PageNumber+1)">Next</a>
        </li>
     }
     else if(Model.pagination.HasPreviousPage)
     {
        <li class="page-item">
-            <a class="page-link" asp-action="Index" asp-route-page="@(Model.pagination.PageNumber-1)">Prev</a>
+            <a class="btn btn-outline-dark btn-sm" style="border-radius: 0px;" asp-action="Index" asp-route-page="@(Model.pagination.PageNumber-1)">Prev</a>
        </li> 
     }
     else
     {
         <li class="page-item">
-            <a class="page-link" asp-action="Index" asp-route-page="@(Model.pagination.PageNumber+1)">Next</a>
+            <a class="btn btn-outline-dark btn-sm" style="border-radius: 0px;" asp-action="Index" asp-route-page="@(Model.pagination.PageNumber+1)">Next</a>
         </li>
     }}
     </ul>
+    <h6 class="text-center">@Model.pagination.PageNumber - @Model.pagination.TotalPages</h6>
 </nav>
