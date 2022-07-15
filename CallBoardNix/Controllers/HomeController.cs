@@ -30,12 +30,7 @@ namespace CallBoardNix.Controllers
         {
             string? token = HttpContext.Session.GetString("token");
             int pageSize = 6;
-            var model = await _companyService.GetAdvert();
-            var adverts = new List<AdvertView>();
-            foreach (var advert in model)
-            {
-                adverts.Add(_mapper.Map<AdvertView>(advert));
-            }
+            var adverts = _mapper.Map<List<AdvertView>>(await _companyService.GetAdvert());
             var count = adverts.Count();
             var items = adverts.Skip((page - 1) * pageSize).Take(pageSize).ToList();
             ListOfAdvert listOfAdvert = new ListOfAdvert
