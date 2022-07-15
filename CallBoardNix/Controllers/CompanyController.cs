@@ -42,7 +42,7 @@ namespace CallBoardNix.Controllers
             return RedirectToAction("Index", "Home");
         }
         [HttpGet]
-        public async Task<ActionResult> Company()
+        public async Task<ActionResult> Company(int page = 1)
         {
             var user = _mapper.Map<User>(await _userService.GetUserByLogin(User.Identity.Name));
             UserViewModel UserModel = new UserViewModel
@@ -51,6 +51,17 @@ namespace CallBoardNix.Controllers
                 Surname = user.Surname,
                 IdCompany = user.IdCompany,
             };
+            var companys = await _companyService.GetCompany();
+            var listcompany = new List<CompanyView>();
+            foreach (var item in companys)
+            {
+                listcompany.Add(_mapper.Map<CompanyView>(item));
+            }
+
+            int pageSize = 6;
+            var count = listcompany.Count();
+            var items = listcompany.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
             if (UserModel.IdCompany != null)
             {
                 var company = await _companyService.GetCompanyById(UserModel.IdCompany);
@@ -63,7 +74,10 @@ namespace CallBoardNix.Controllers
                 CompanyResultModel result = new CompanyResultModel
                 (
                     UserModel,
-                    companyResult
+                    companyResult,
+                    items,
+                    new PaginationModel(count, page, pageSize)
+
                 );
                 return View(result);
             }
@@ -71,10 +85,28 @@ namespace CallBoardNix.Controllers
             {
                 CompanyResultModel result = new CompanyResultModel
                 (
-                    UserModel
+                    UserModel,
+                    listcompany,
+                    new PaginationModel(count, page, pageSize)
                 );
                 return View(result);
             }         
+        }
+        [HttpGet]
+        public async Task<ActionResult> CreateCompany()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> CreateCompany(CompanyView company)
+        {
+            var model = _mapper.Map<CompanyDTO>(company);
+            model.IdCompany = Guid.NewGuid();
+            await _companyService.AddCompany(model);
+
+            await _userService.EditUserCompany(User.Identity.Name, model.IdCompany);
+
+            return RedirectToAction("Company", "Company");
         }
     }
 }
