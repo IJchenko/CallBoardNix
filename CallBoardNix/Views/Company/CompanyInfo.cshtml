@@ -1,0 +1,63 @@
+﻿@model CallBoardNix.Models.CompanyResultModel
+@{
+
+}
+
+<div class="p-2">
+    <h5>@Model.Company.CompanyName</h5><br>
+    <h5>Description:</h5>
+    <h6>@Model.Company.Description</h6><br> 
+    <h5>Link to official site:</h5>
+    <h6>@Model.Company.Link</h6><br> 
+    <h5>Other adverts of this company:</h5><br>
+    <ul style="height:355px">
+    @foreach(var item in Model.Adverts)
+    {
+    <li class="border mb-3" style="margin-right:26px;height:100px;overflow-wrap:anywhere; overflow:auto; overflow-x:hidden">
+        <div class="row p-2"> 
+            <div class="col"> 
+                <a asp-controller="Home" asp-action="AdvertInfo" asp-route-IdAdvert="@item.IdAdvert">@item.NameAdvert</a> 
+            </div>
+        <div class="col"> 
+            <h5>@item.Salary</h5> 
+        </div> 
+        </div>
+        <div class="row">
+            <div class="col"> 
+                <h6 class="ms-2 me-2">@item.Description</h6> 
+            </div> 
+        </div> 
+    </li>
+    }
+    </ul>
+    <nav style="width:100%">
+    <ul class="pagination justify-content-center">     
+    @{if(Model.Pagination.HasPreviousPage && Model.Pagination.HasNextPage)
+    {
+       <li class="page-item pe-1">
+            <a class="btn btn-outline-dark btn-sm" style="border-radius: 0px;" asp-controller="Company" 
+            asp-action="CompanyInfo" asp-route-IdCompany="@Model.Company.IdCompany" asp-route-page="@(Model.Pagination.PageNumber-1)">Prev</a>
+       </li> 
+       <li class="page-item">
+            <a class="btn btn-outline-dark btn-sm" style="border-radius: 0px;" asp-controller="Company" 
+            asp-action="CompanyInfo" asp-route-IdCompany="@Model.Company.IdCompany" asp-route-page="@(Model.Pagination.PageNumber+1)">Next</a>
+       </li>
+    }
+    else if(Model.Pagination.HasPreviousPage)
+    {
+       <li class="page-item">
+            <a class="btn btn-outline-dark btn-sm" style="border-radius: 0px;" asp-controller="Company" 
+            asp-action="CompanyInfo" asp-route-IdCompany="@Model.Company.IdCompany" asp-route-page="@(Model.Pagination.PageNumber-1)">Prev</a>
+       </li> 
+    }
+    else
+    {
+        <li class="page-item">
+            <a class="btn btn-outline-dark btn-sm" style="border-radius: 0px;" asp-controller="Company" 
+            asp-action="CompanyInfo" asp-route-IdCompany="@Model.Company.IdCompany" asp-route-page="@(Model.Pagination.PageNumber+1)">Next</a>
+        </li>
+    }}
+    </ul>
+    <h6 class="text-center">@Model.Pagination.PageNumber - @Model.Pagination.TotalPages</h6>
+</nav>
+</div>

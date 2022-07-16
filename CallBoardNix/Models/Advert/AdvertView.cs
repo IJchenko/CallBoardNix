@@ -4,6 +4,7 @@ namespace CallBoardNix.Models
 {
     public class AdvertView
     {
+        public Guid IdAdvert { get; set; }
         public string? NameAdvert { get; set; }
         public string? Description { get; set; }
         public string? Requirements { get; set; }

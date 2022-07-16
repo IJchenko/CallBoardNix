@@ -80,29 +80,34 @@ namespace BusinessLayer.Services
             var adverts = _mapper.Map<List<AdvertDTO>>(await _repository.GetAll<Advert>());
             return adverts;
         }
+        public async Task<List<AdvertDTO>> GetAdvertWhere(Guid guid)
+        {
+            var adverts = _mapper.Map<List<AdvertDTO>>(await _repository.GetAll<Advert>());
+            List<AdvertDTO> result = new List<AdvertDTO>();
+            foreach(var advert in adverts)
+            {
+                if(advert.IdCompany == guid)
+                {
+                    result.Add(advert);
+                }
+            }
+            return result;
+        }
         public async Task<List<CategoryDTO>> GetCategory()
         {
             var categoty = _mapper.Map<List<CategoryDTO>>(await _repository.GetAll<Category>());
             return categoty;
         }
 
-        public async Task<CompanyDTO> GetCompanyById(Guid id)
+        public async Task<CompanyDTO> GetCompanyById(Guid guid)
         {
-            var companys = _repository.GetAll<Company>();
-            Company res = new Company();
-            foreach (var company in await companys)
-            {
-                if (company.IdCompany == id)
-                {
-                    res = company;
-                    break;
-                }
-            }
-            if (res == null)
-            {
-                throw new ArgumentNullException(nameof(res), "model is empty");
-            }
+            var res = await _repository.GetById<Company>(guid);
             return _mapper.Map<CompanyDTO>(res);
+        }
+        public async Task<AdvertDTO> GetAdvertById(Guid guid)
+        {
+            var res = await _repository.GetById<Advert>(guid);
+            return _mapper.Map<AdvertDTO>(res);
         }
     }
 }            

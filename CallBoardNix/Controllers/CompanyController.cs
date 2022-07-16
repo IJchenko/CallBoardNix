@@ -59,7 +59,17 @@ namespace CallBoardNix.Controllers
             int pageSize = 6;
             var count = companys.Count();
             var items = companys.Skip((page - 1) * pageSize).Take(pageSize).ToList();
-            if (UserModel.IdCompany != null)
+            if (UserModel.IdCompany.ToString() == "00000000-0000-0000-0000-000000000000")
+            {
+                CompanyResultModel result = new CompanyResultModel
+                (
+                    UserModel,
+                    items,
+                    new PaginationModel(count, page, pageSize)
+                );
+                return View(result);
+            }
+            else
             {
                 var company = await _companyService.GetCompanyById(UserModel.IdCompany);
                 CompanyView companyResult = new CompanyView
@@ -74,20 +84,25 @@ namespace CallBoardNix.Controllers
                     companyResult,
                     items,
                     new PaginationModel(count, page, pageSize)
-
-                );
-                return View(result);
-            }
-            else
-            {
-                CompanyResultModel result = new CompanyResultModel
-                (
-                    UserModel,
-                    items,
-                    new PaginationModel(count, page, pageSize)
                 );
                 return View(result);
             }         
+        }
+        [HttpGet]
+        public async Task<ActionResult> CompanyInfo(Guid IdCompany, int page=1)
+        {
+            var company = _mapper.Map<CompanyView>(await _companyService.GetCompanyById(IdCompany));
+            var adverts = _mapper.Map<List<AdvertView>>(await _companyService.GetAdvertWhere(IdCompany));
+            int pageSize = 3;
+            var count = adverts.Count();
+            var items = adverts.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            CompanyResultModel result = new CompanyResultModel
+                (
+                    company,
+                    items,
+                    new PaginationModel(count, page, pageSize)
+                );
+            return View(result);
         }
         [HttpGet]
         public async Task<ActionResult> CreateCompany()

@@ -1,5 +1,21 @@
-﻿@{
+﻿@model CallBoardNix.Models.Advert.AdvertInfoModel
+@{
 
 }
-<h1>info</h1>
-<h1>@ViewBag.Company</h1>
+<div class="p-2">
+        <div class="row"> 
+            <div class="col"> 
+                <h5>@Model.AdvertView.NameAdvert</h5> 
+            </div>
+            <div class="col"> 
+                <h5>@Model.AdvertView.Salary$</h5> 
+            </div>  
+        </div><br>
+    <h5>Description:</h5>
+    <h6>@Model.AdvertView.Description</h6><br> 
+    <h5>Requirements:</h5>
+    <h6>@Model.AdvertView.Requirements</h6><br> 
+    <h5>Company: @Model.CompanyView.CompanyName</h5>
+    <a asp-controller="Company" asp-action="CompanyInfo" asp-route-IdCompany="@Model.CompanyView.IdCompany">go to company page</a>
+</div>
+
