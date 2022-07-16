@@ -34,9 +34,9 @@ namespace DataLayer.Repository
         {
             return await _dbContext.Set<TEntity>().ToListAsync();
         }
-        public async Task GetById<TEntity>(Guid guid) where TEntity : class
+        public async Task<TEntity> GetById<TEntity>(Guid guid) where TEntity : class
         {
-            await _dbContext.FindAsync<TEntity>(guid);
+            return await _dbContext.FindAsync<TEntity>(guid);
         }
         public async Task Update<TEntity>(TEntity entity) where TEntity : class
         {
