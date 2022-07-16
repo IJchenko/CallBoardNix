@@ -22,13 +22,14 @@ namespace CallBoardNix.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
-
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper, IUserService userService)
+        private readonly RoleManager<IdentityRole> _roleManager;
+        public AccountController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper, IUserService userService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _mapper = mapper;
             _userService = userService;
+            _roleManager = roleManager;
         }
         [AllowAnonymous]
         [HttpGet]
@@ -40,6 +41,11 @@ namespace CallBoardNix.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
+            try
+            {
+                IdentityResult result1 = await _roleManager.CreateAsync(new IdentityRole("Worker"));
+                IdentityResult result2 = await _roleManager.CreateAsync(new IdentityRole("Employer"));
+            }catch{}
             if (ModelState.IsValid)
             {
                 User user = new User() { Name = model.Name, UserName = model.UserName, Surname = model.Surname, Status = model.Status, Email = model.Email, EmailConfirmed = true };
