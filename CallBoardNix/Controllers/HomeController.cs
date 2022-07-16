@@ -2,6 +2,7 @@
 using BusinessLayer.DTO;
 using BusinessLayer.Interfaces;
 using CallBoardNix.Models;
+using CallBoardNix.Models.Advert;
 using DataLayer.EF;
 using DataLayer.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -41,10 +42,16 @@ namespace CallBoardNix.Controllers
             return View(listOfAdvert);
         }    
         [HttpGet]
-        public IActionResult AdvertInfo(string IdCompany)
+        public async Task<IActionResult> AdvertInfo(Guid IdAdvert)
         {
-            ViewBag.Company = IdCompany;
-            return View();
+            var advert = _mapper.Map<AdvertView>(await _companyService.GetAdvertById(IdAdvert));
+            var company = _mapper.Map<CompanyView>(await _companyService.GetCompanyById(advert.IdCompany));
+            AdvertInfoModel result = new AdvertInfoModel
+                (
+                    advert,
+                    company
+                );
+            return View(result);
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
