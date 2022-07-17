@@ -9,11 +9,11 @@ namespace BusinessLayer.Interfaces
 {
     public interface ICompanyService
     {
-        Task<CompanyDTO> AddCompany(CompanyDTO model);
-        Task<CompanyDTO> EditCompany(CompanyDTO model);
-        Task<AdvertDTO> AddAdvert(AdvertDTO model);
-        Task<AdvertDTO> DeleteAdvert(AdvertDTO model);
-        Task<AdvertDTO> EditAdvert(AdvertDTO model);
+        Task AddCompany(CompanyDTO model);
+        Task EditCompany(CompanyDTO model);
+        Task AddAdvert(AdvertDTO model);
+        Task DeleteAdvert(Guid IdAdvert);
+        Task EditAdvert(AdvertDTO model,Guid IdAdvert);
         Task<CompanyDTO> GetCompanyById(Guid guid);
         Task<AdvertDTO> GetAdvertById(Guid guid);
         Task<List<AdvertDTO>> GetAdvertWhere(Guid guid);

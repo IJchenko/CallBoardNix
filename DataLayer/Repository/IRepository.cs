@@ -11,7 +11,7 @@ namespace DataLayer.Repository
         Task<List<TEntity>> GetAll<TEntity>() where TEntity : class;
         Task<TEntity> Create<TEntity>(TEntity entity) where TEntity : class;
         Task Update<TEntity>(TEntity entity) where TEntity : class;
-        Task Delete<TEntity>(TEntity entity) where TEntity : class;
+        Task Delete<TEntity>(Guid guid) where TEntity : class;
         Task<TEntity> GetById<TEntity>(Guid guid) where TEntity : class;
     }
 }

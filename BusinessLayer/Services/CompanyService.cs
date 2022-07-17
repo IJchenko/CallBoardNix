@@ -20,7 +20,7 @@ namespace BusinessLayer.Services
             _repository = repository;
             _mapper = mapper;
         }
-        public async Task<CompanyDTO> AddCompany(CompanyDTO model)
+        public async Task AddCompany(CompanyDTO model)
         {
             if (model == null)
             {
@@ -28,9 +28,8 @@ namespace BusinessLayer.Services
             }
             var company = _mapper.Map<Company>(model);
             await _repository.Create(company);
-            return _mapper.Map<CompanyDTO>(company);
         }
-        public async Task<CompanyDTO> EditCompany(CompanyDTO model)
+        public async Task EditCompany(CompanyDTO model)
         {
             if (model == null)
             {
@@ -38,34 +37,30 @@ namespace BusinessLayer.Services
             }
             var company = _mapper.Map<Company>(model);
             await _repository.Update(company);
-            return _mapper.Map<CompanyDTO>(company);
         }
         public async Task<List<CompanyDTO>> GetCompany()
         {
             var company = _mapper.Map<List<CompanyDTO>>(await _repository.GetAll<Company>());
             return company;
         }
-        public async Task<AdvertDTO> DeleteAdvert(AdvertDTO model)
+        public async Task DeleteAdvert(Guid IdAdvert)
         {
-            if (model == null)
-            {
-                throw new ArgumentNullException(nameof(model), "model is empty");
-            }
-            var advert = _mapper.Map<Advert>(model);
-            await _repository.Delete(advert);
-            return _mapper.Map<AdvertDTO>(advert);
+            await _repository.Delete<Advert>(IdAdvert);
         }
-        public async Task<AdvertDTO> EditAdvert(AdvertDTO model)
+        public async Task EditAdvert(AdvertDTO model,Guid IdAdvert)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model), "model is empty");
             }
-            var advert = _mapper.Map<Advert>(model);
+            var advert = await _repository.GetById<Advert>(IdAdvert);
+            advert.NameAdvert = model.NameAdvert;
+            advert.Description = model.Description;
+            advert.Requirements = model.Requirements;
+            advert.Salary = model.Salary;
             await _repository.Update(advert);
-            return _mapper.Map<AdvertDTO>(advert);
         }
-        public async Task<AdvertDTO> AddAdvert(AdvertDTO model)
+        public async Task AddAdvert(AdvertDTO model)
         {
             if (model == null)
             {
@@ -73,7 +68,6 @@ namespace BusinessLayer.Services
             }
             var advert = _mapper.Map<Advert>(model);
             await _repository.Create(advert);
-            return _mapper.Map<AdvertDTO>(advert);
         }
         public async Task<List<AdvertDTO>> GetAdvert()
         {

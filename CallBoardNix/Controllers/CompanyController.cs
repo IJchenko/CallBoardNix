@@ -59,7 +59,7 @@ namespace CallBoardNix.Controllers
             int pageSize = 6;
             var count = companys.Count();
             var items = companys.Skip((page - 1) * pageSize).Take(pageSize).ToList();
-            if (UserModel.IdCompany.ToString() == "00000000-0000-0000-0000-000000000000")
+            if (UserModel.IdCompany == Guid.Empty)
             {
                 CompanyResultModel result = new CompanyResultModel
                 (
@@ -89,20 +89,46 @@ namespace CallBoardNix.Controllers
             }         
         }
         [HttpGet]
-        public async Task<ActionResult> CompanyInfo(Guid IdCompany, int page=1)
+        public async Task<ActionResult> CompanyInfo(Guid IdCompany, Guid IdAdvertDelete, int page = 1)
         {
+            if (IdAdvertDelete != Guid.Empty)
+            { 
+                await _companyService.DeleteAdvert(IdAdvertDelete);
+            }
+            var user = _mapper.Map<User>(await _userService.GetUserByLogin(User.Identity.Name));
+            UserViewModel UserModel = new UserViewModel
+            {
+                IdCompany = user.IdCompany,
+            };
             var company = _mapper.Map<CompanyView>(await _companyService.GetCompanyById(IdCompany));
             var adverts = _mapper.Map<List<AdvertView>>(await _companyService.GetAdvertWhere(IdCompany));
+
             int pageSize = 3;
             var count = adverts.Count();
             var items = adverts.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
             CompanyResultModel result = new CompanyResultModel
                 (
+                    UserModel,
                     company,
                     items,
                     new PaginationModel(count, page, pageSize)
                 );
             return View(result);
+        }
+        [HttpGet]
+        public async Task<IActionResult> EditAdvert(Guid IdAdvert)
+        {
+            var result = await _companyService.GetAdvertById(IdAdvert);
+            var advert = _mapper.Map<AdvertView>(result);
+            return View(advert);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditAdvert(AdvertView model, Guid IdAdvert)
+        {
+            var advert = _mapper.Map<AdvertDTO>(model);
+            await _companyService.EditAdvert(advert, IdAdvert);
+            return RedirectToAction("Index", "Home");
         }
         [HttpGet]
         public async Task<ActionResult> CreateCompany()

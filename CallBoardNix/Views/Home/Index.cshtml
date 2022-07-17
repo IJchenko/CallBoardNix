@@ -3,7 +3,8 @@
     ViewData["Title"] = "Home Page";
 }
 @using BusinessLayer.DTO
-<ul style="height: 690px">
+<div style="height:875px">
+<ul style="height: 790px">
     @foreach(var item in Model.adverts)
     {
     <li class="border mb-3" style="margin-right:26px;height:100px;overflow-wrap:anywhere; overflow:auto; overflow-x:hidden">
@@ -49,3 +50,4 @@
     </ul>
     <h6 class="text-center">@Model.pagination.PageNumber - @Model.pagination.TotalPages</h6>
 </nav>
+</div>

@@ -1,13 +1,11 @@
-﻿@using CallBoardNix.Models
-@model CallBoardNix.Models.AdvertView
+﻿@model CallBoardNix.Models.AdvertView
 @{
-    ViewData["Title"] = "Create Advert";  
 }
 <div class="p-5" style="height:820px">
 <h5 class="text-center mt-4">
-    Job creation...
+    Editing advert...
 </h5>
-<form asp-controller="Company" asp-action="CreateAdvert" method="post">
+<form asp-controller="Company" asp-action="EditAdvert" asp-route-IdAdvert="@Model.IdAdvert" method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group mt-4">
             <label asp-for="NameAdvert" class="control-label"></label>
@@ -29,12 +27,9 @@
             <input asp-for="Salary" required class="form-control" />
             <span asp-validation-for="Salary" class="text-danger"></span>
         </div>
-        <select class="form-select mt-4" required asp-for="IdCategory" asp-items="ViewBag.Categories"></select>
+            
         <div class="form-group text-center mt-4">
-            <input type="submit" value="Create" class="btn btn-outline-dark btn-sm" style="border-radius: 0px;"/>
+            <input type="submit" value="Edit" class="btn btn-outline-dark btn-sm" style="border-radius: 0px;"/>
         </div><br>
     </form>
 </div>
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

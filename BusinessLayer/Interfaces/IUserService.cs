@@ -9,11 +9,11 @@ namespace BusinessLayer.Interfaces
 {
     public interface IUserService
     {
-        Task<ReviewDTO> AddReviewCompany(ReviewDTO model);
-        Task<ResumeDTO> AddResume(ResumeDTO model);
-        Task<ResumeDTO> EditResume(ResumeDTO model);
+        Task AddReviewCompany(ReviewDTO model);
+        Task AddResume(ResumeDTO model);
+        Task EditResume(ResumeDTO model);
         Task<UserDTO> GetUserByLogin(string userName);
-        Task<UserDTO> EditUser(UserDTO model);
-        Task<UserDTO> EditUserCompany(string login, Guid guid);
+        Task EditUser(UserDTO model);
+        Task EditUserCompany(string login, Guid guid);
     }
 }

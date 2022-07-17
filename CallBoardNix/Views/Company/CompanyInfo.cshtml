@@ -2,15 +2,19 @@
 @{
 
 }
-
-<div class="p-2">
+<div style="padding:32px">
     <h5>@Model.Company.CompanyName</h5><br>
     <h5>Description:</h5>
     <h6>@Model.Company.Description</h6><br> 
     <h5>Link to official site:</h5>
     <h6>@Model.Company.Link</h6><br> 
-    <h5>Other adverts of this company:</h5><br>
-    <ul style="height:355px">
+    @if(@Model.User.IdCompany==@Model.Company.IdCompany)
+    {
+        <a class="btn btn-outline-dark btn-sm" style="margin-top: 4px; border-radius: 0px; margin-bottom: 5px"
+        asp-controller="Company" asp-action="CreateAdvert">Create Advert</a>
+    }
+    <h5>Other adverts of this company:</h5>
+    <ul style="height:355px; padding-left:0px">
     @foreach(var item in Model.Adverts)
     {
     <li class="border mb-3" style="margin-right:26px;height:100px;overflow-wrap:anywhere; overflow:auto; overflow-x:hidden">
@@ -20,7 +24,19 @@
             </div>
         <div class="col"> 
             <h5>@item.Salary</h5> 
-        </div> 
+        </div>
+            @{
+                if (item.IdCompany == Model.User.IdCompany)
+                    {
+                        <div class="col">
+                            <a class="btn btn-outline-danger btn-sm" style="border-radius: 0px;"
+                            asp-controller="Company" asp-action="EditAdvert" asp-route-IdAdvert="@item.IdAdvert">Edit</a>
+                            <a class="btn btn-outline-danger btn-sm" style="border-radius: 0px;" 
+                            asp-controller="Company" asp-action="CompanyInfo" asp-route-IdCompany="@Model.User.IdCompany" 
+                            asp-route-IdAdvertDelete="@item.IdAdvert">Delete</a>
+                        </div>
+                    }
+            }
         </div>
         <div class="row">
             <div class="col"> 
