@@ -20,7 +20,7 @@ namespace BusinessLayer.Services
             _repository = repository;
             _mapper = mapper;
         }
-        public async Task<ReviewDTO> AddReviewCompany(ReviewDTO model)
+        public async Task AddReviewCompany(ReviewDTO model)
         {
             if (model == null)
             {
@@ -28,9 +28,8 @@ namespace BusinessLayer.Services
             }
             var review = _mapper.Map<Review>(model);
             await _repository.Create(review);
-            return _mapper.Map<ReviewDTO>(review);
         }
-        public async Task<UserDTO> EditUser(UserDTO model)
+        public async Task EditUser(UserDTO model)
         {
             if (model == null)
             {
@@ -38,17 +37,15 @@ namespace BusinessLayer.Services
             }
             var user = _mapper.Map<User>(model);
             await _repository.Update(user);
-            return _mapper.Map<UserDTO>(model);
         }
-        public async Task<UserDTO> EditUserCompany(string login, Guid guid)
+        public async Task EditUserCompany(string login, Guid guid)
         {
             var users = await _repository.GetAll<User>();
             var user = users.FirstOrDefault(x=>x.UserName==login);
             user.IdCompany = guid;
             await _repository.Update(user);
-            return _mapper.Map<UserDTO>(user);
         }
-        public async Task<ResumeDTO> AddResume(ResumeDTO model)
+        public async Task AddResume(ResumeDTO model)
         {
             if (model == null)
             {
@@ -56,9 +53,8 @@ namespace BusinessLayer.Services
             }
             var resume = _mapper.Map<Resume>(model);
             await _repository.Create(resume);
-            return _mapper.Map<ResumeDTO>(resume);
         }
-        public async Task<ResumeDTO> EditResume(ResumeDTO model)
+        public async Task EditResume(ResumeDTO model)
         {
             if (model == null)
             {
@@ -66,7 +62,6 @@ namespace BusinessLayer.Services
             }
             var resume = _mapper.Map<Resume>(model);
             await _repository.Update(resume);
-            return _mapper.Map<ResumeDTO>(resume);
         }
         public async Task<UserDTO> GetUserByLogin(string userName)
         {
