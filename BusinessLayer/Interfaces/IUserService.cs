@@ -12,7 +12,6 @@ namespace BusinessLayer.Interfaces
         Task AddReviewCompany(ReviewDTO model);
         Task AddResume(ResumeDTO model);
         Task EditResume(ResumeDTO model);
-        Task<UserDTO> GetUserByLogin(string userName);
         Task EditUser(UserDTO model);
         Task EditUserCompany(string login, Guid guid);
     }
