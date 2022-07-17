@@ -20,8 +20,9 @@
             Companys = companys;
             User = user;
         }
-        public CompanyResultModel(CompanyView company, List<AdvertView> adverts, PaginationModel pagination)
+        public CompanyResultModel(UserViewModel user, CompanyView company, List<AdvertView> adverts, PaginationModel pagination)
         {
+            User = user;
             Company = company;
             Adverts = adverts;
             Pagination = pagination;
