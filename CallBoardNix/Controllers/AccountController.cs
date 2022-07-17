@@ -41,14 +41,11 @@ namespace CallBoardNix.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            try
-            {
-                IdentityResult result1 = await _roleManager.CreateAsync(new IdentityRole("Worker"));
-                IdentityResult result2 = await _roleManager.CreateAsync(new IdentityRole("Employer"));
-            }catch{}
+            await InitializerEntity.InitializeAsync(_userManager, _roleManager);
             if (ModelState.IsValid)
             {
-                User user = new User() { Name = model.Name, UserName = model.UserName, Surname = model.Surname, Status = model.Status, Email = model.Email, EmailConfirmed = true };
+                User user = new User() { Name = model.Name, UserName = model.UserName, Surname = model.Surname, 
+                Status = model.Status, Email = model.Email, PhoneNumber = model.PhoneNumber,EmailConfirmed = true };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -89,7 +86,7 @@ namespace CallBoardNix.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
                 if (result.Succeeded)
                 {
-                    var user = _mapper.Map<User>(await _userService.GetUserByLogin(model.UserName));
+                    var user = _mapper.Map<User>(await _userManager.FindByNameAsync(model.UserName));
                     var token = CreateToken(user.Status);
                     HttpContext.Session.SetString("Token", token);
                     return RedirectToAction("Index", "Home");
@@ -106,10 +103,11 @@ namespace CallBoardNix.Controllers
             return RedirectToAction("Index", "Home");
         }
         [HttpGet]
-        public async Task<IActionResult> Profile()
+        public async Task<IActionResult> Profile(bool change = false)
         {
-            var user = _mapper.Map<User>(await _userService.GetUserByLogin(User.Identity.Name));
-            UserViewModel resul = new UserViewModel
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+           
+            UserViewModel res = new UserViewModel
             {
                 Name = user.Name,
                 Surname = user.Surname,
@@ -119,8 +117,7 @@ namespace CallBoardNix.Controllers
                 IdResumes = user.IdResumes,
                 UserName = user.UserName
             };
-
-            return View(resul);
+            return View(res);
         }
         public string CreateToken(string role)
         {

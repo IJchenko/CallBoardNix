@@ -20,8 +20,12 @@ namespace CallBoardNix.Models
         [Required]
         public string? UserName { get; set; }
         [Required]
+        [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", ErrorMessage = "Incorrect data! Example: your1email@poshta.ua")]
         [EmailAddress]
         public string? Email { get; set; }
+        [Required]
+        [RegularExpression(@"\d{10}", ErrorMessage = "Incorrect data! Example:XXXXXXXXXX")]
+        public string? PhoneNumber { get; set; }
         [Required]
         [DataType(DataType.Password)]
         public string? Password { get; set; }

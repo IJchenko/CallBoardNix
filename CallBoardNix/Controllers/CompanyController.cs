@@ -6,6 +6,7 @@ using CallBoardNix.Models;
 using DataLayer.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.IdentityModel.Tokens;
@@ -17,14 +18,16 @@ namespace CallBoardNix.Controllers
     [Authorize(Roles = "Employer")]
     public class CompanyController : Controller
     {
+        private readonly UserManager<User> _userManager;
         private readonly ICompanyService _companyService;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
-        public CompanyController(IMapper mapper, ICompanyService companyService, IUserService userService)
+        public CompanyController(IMapper mapper, ICompanyService companyService, IUserService userService, UserManager<User> userManager)
         {
             _mapper = mapper;
             _companyService = companyService;
             _userService = userService;
+            _userManager = userManager;
         }
         
         [HttpGet]
@@ -37,7 +40,7 @@ namespace CallBoardNix.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAdvert(AdvertView advert)//створює оголошення
         {
-            var user = _mapper.Map<User>(await _userService.GetUserByLogin(User.Identity.Name));
+            var user = _mapper.Map<User>(await _userManager.FindByNameAsync(User.Identity.Name));
             UserViewModel UserModel = new UserViewModel
             {
                 IdCompany = user.IdCompany,
@@ -50,7 +53,7 @@ namespace CallBoardNix.Controllers
         [HttpGet]
         public async Task<ActionResult> Company(int page = 1)
         {
-            var user = _mapper.Map<User>(await _userService.GetUserByLogin(User.Identity.Name));
+            var user = _mapper.Map<User>(await _userManager.FindByNameAsync(User.Identity.Name));
             UserViewModel UserModel = new UserViewModel
             {
                 IdCompany = user.IdCompany,
@@ -95,7 +98,7 @@ namespace CallBoardNix.Controllers
             { 
                 await _companyService.DeleteAdvert(IdAdvertDelete);
             }
-            var user = _mapper.Map<User>(await _userService.GetUserByLogin(User.Identity.Name));
+            var user = _mapper.Map<User>(await _userManager.FindByNameAsync(User.Identity.Name));
             UserViewModel UserModel = new UserViewModel
             {
                 IdCompany = user.IdCompany,
