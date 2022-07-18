@@ -2,7 +2,7 @@
 @{
     Layout = "/Views/Shared/_Layout.cshtml";
 }
-<div class="p-5">
+<div class="p-5" style="height:735px">
     <h5>
         Personal information:
     </h5>
@@ -14,9 +14,8 @@
         Login: @User.Identity.Name<br>
         Email: @Model.Email<br>
     </h5>
+    <a class="mt-5 btn btn-outline-danger btn-sm" style="border-radius: 0px;" asp-action="EditUser" asp-controller="Account">Change</a>
 </div>
-
-
-<form class="ms-5" method="post" asp-action="Logout" asp-controller="Account">
+<form class="ms-5 mb-5" method="post" asp-action="Logout" asp-controller="Account">
     <input class="btn btn-outline-danger btn-sm" style="border-radius: 0px;" type="submit" value="Logout"/>
 </form>

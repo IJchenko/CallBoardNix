@@ -13,6 +13,7 @@ using System.Diagnostics;
 
 namespace CallBoardNix.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -29,7 +30,6 @@ namespace CallBoardNix.Controllers
         [HttpGet]
         public async Task<ActionResult> Index(int page = 1)//повертає список всіх оголошень
         {
-            string? token = HttpContext.Session.GetString("token");
             int pageSize = 7;
             var adverts = _mapper.Map<List<AdvertView>>(await _companyService.GetAdvert());
             var count = adverts.Count();

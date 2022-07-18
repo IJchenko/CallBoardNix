@@ -1,21 +1,21 @@
 ﻿@model CallBoardNix.Models.CompanyResultModel
 @{
-    
-}
-@{
-    if (@Model.User.IdCompany == Guid.Empty)
+    if (User.IsInRole("Employer"))
     {
-        <h6 class="text-center" style="margin-top:10px;margin-bottom:10px">
-            Search your company or create, the choise is your!
-            <a asp-controller="Company" asp-action="CreateCompany">create company</a>
-        </h6>
-    }
-    else
-    {
-         <div class="pt-4 pb-4" style="margin-left:32px">
-            <a class="btn btn-outline-dark btn-sm" style="border-radius: 0px;"
+        if (@Model.User.IdCompany == Guid.Empty)
+        {
+            <h6 class="text-center" style="margin-top:10px;margin-bottom:10px">
+                Search your company or create, the choise is your!
+                <a asp-controller="Company" asp-action="CreateCompany">create company</a>
+            </h6>
+        }
+        else
+        {
+            <div class="pt-4 pb-4" style="margin-left:32px">
+                <a class="btn btn-outline-dark btn-sm" style="border-radius: 0px;"
             asp-action="CompanyInfo" asp-route-IdCompany="@Model.User.IdCompany">My Company</a>
-         </div>
+            </div>
+        }
     }
 }
 <ul style="height: 690px">
