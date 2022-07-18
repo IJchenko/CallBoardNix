@@ -2,16 +2,12 @@
 using BusinessLayer.Interfaces;
 using CallBoardNix.Extentions;
 using CallBoardNix.Models;
+using CallBoardNix.Models.Account;
 using DataLayer.EF;
 using DataLayer.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 namespace CallBoardNix.Controllers
 {
@@ -81,17 +77,26 @@ namespace CallBoardNix.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && model != null)
             {
                 var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
                 if (result.Succeeded)
                 {
                     var user = _mapper.Map<User>(await _userManager.FindByNameAsync(model.UserName));
-                    var token = CreateToken(user.Status);
-                    HttpContext.Session.SetString("Token", token);
-                    return RedirectToAction("Index", "Home");
+                    if (user == null)
+                    {
+                        return StatusCode(401);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 else ModelState.AddModelError("", "Wrong login or password");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Input your data");
             }
             return View();
         }
@@ -103,10 +108,9 @@ namespace CallBoardNix.Controllers
             return RedirectToAction("Index", "Home");
         }
         [HttpGet]
-        public async Task<IActionResult> Profile(bool change = false)
+        public async Task<IActionResult> Profile()
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-           
             UserViewModel res = new UserViewModel
             {
                 Name = user.Name,
@@ -119,19 +123,38 @@ namespace CallBoardNix.Controllers
             };
             return View(res);
         }
-        public string CreateToken(string role)
+        [HttpGet]
+        public async Task<IActionResult> EditUser()
         {
-            var claims = new List<Claim>
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditUser(EditUserModel model)
+        {
+            User user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var check = await _userManager.CheckPasswordAsync(user, model.Password);
+            if(check==true)
             {
-            new Claim(ClaimTypes.Role, role),
-            };
-            var jwt = new JwtSecurityToken(
-                issuer: AuthOptions.ISSUER,
-                audience: AuthOptions.AUDIENCE,
-                claims: claims,
-                expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(3)),
-                signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-            return new JwtSecurityTokenHandler().WriteToken(jwt);
+                user.Name = model.Name;
+                user.Surname = model.Surname;
+                user.PhoneNumber = model.PhoneNumber;
+                
+                IdentityResult result = await _userManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Error");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Password is wrong");
+            }
+            return View(model);
         }
     }
 }
