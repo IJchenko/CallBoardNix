@@ -126,35 +126,49 @@ namespace CallBoardNix.Controllers
         [HttpGet]
         public async Task<IActionResult> EditUser()
         {
-            return View();
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            EditUserModel res = new EditUserModel
+            {
+                Name = user.Name,
+                Surname = user.Surname,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber
+            };
+            return View(res);
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditUser(EditUserModel model)
         {
-            User user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var check = await _userManager.CheckPasswordAsync(user, model.Password);
-            if(check==true)
+            if (model.Password == null)
             {
-                user.Name = model.Name;
-                user.Surname = model.Surname;
-                user.PhoneNumber = model.PhoneNumber;
-                
-                IdentityResult result = await _userManager.UpdateAsync(user);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Error");
-                }
+                ModelState.AddModelError("", "Not enought data!");
             }
             else
             {
-                ModelState.AddModelError("", "Password is wrong");
+                User user = await _userManager.FindByNameAsync(User.Identity.Name);
+                var check = await _userManager.CheckPasswordAsync(user, model.Password);
+                if (check == true)
+                {
+                    user.Name = model.Name;
+                    user.Surname = model.Surname;
+                    user.PhoneNumber = model.PhoneNumber;
+
+                    IdentityResult result = await _userManager.UpdateAsync(user);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Error");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Password is wrong");
+                }
             }
-            return View(model);
+            return View();
         }
     }
 }
