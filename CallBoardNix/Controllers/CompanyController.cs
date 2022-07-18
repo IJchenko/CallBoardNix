@@ -15,7 +15,6 @@ using System.Text;
 
 namespace CallBoardNix.Controllers
 {
-    [Authorize(Roles = "Employer")]
     public class CompanyController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -29,8 +28,8 @@ namespace CallBoardNix.Controllers
             _userService = userService;
             _userManager = userManager;
         }
-        
         [HttpGet]
+        [Authorize(Roles = "Employer")]
         public async Task<ActionResult> CreateAdvert()//повертає список всіх категорій
         {
             var model = await _companyService.GetCategory();
@@ -38,19 +37,29 @@ namespace CallBoardNix.Controllers
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "Employer")]
         public async Task<IActionResult> CreateAdvert(AdvertView advert)//створює оголошення
         {
-            var user = _mapper.Map<User>(await _userManager.FindByNameAsync(User.Identity.Name));
-            UserViewModel UserModel = new UserViewModel
+            if(advert == null)
             {
-                IdCompany = user.IdCompany,
-            };
-            var model = _mapper.Map<AdvertDTO>(advert);
-            model.IdCompany = user.IdCompany;
-            await _companyService.AddAdvert(model);
-            return RedirectToAction("Index", "Home");
+                ModelState.AddModelError("", "Not enough data!");
+            }
+            else
+            {
+                var user = _mapper.Map<User>(await _userManager.FindByNameAsync(User.Identity.Name));
+                UserViewModel UserModel = new UserViewModel
+                {
+                    IdCompany = user.IdCompany,
+                };
+                var model = _mapper.Map<AdvertDTO>(advert);
+                model.IdCompany = user.IdCompany;
+                await _companyService.AddAdvert(model);
+                return RedirectToAction("Index", "Home");
+            }
+            return View(advert);
         }
         [HttpGet]
+        [Authorize(Roles = "Worker, Employer")]
         public async Task<ActionResult> Company(int page = 1)
         {
             var user = _mapper.Map<User>(await _userManager.FindByNameAsync(User.Identity.Name));
@@ -92,6 +101,7 @@ namespace CallBoardNix.Controllers
             }         
         }
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult> CompanyInfo(Guid IdCompany, Guid IdAdvertDelete, int page = 1)
         {
             if (IdAdvertDelete != Guid.Empty)
@@ -120,6 +130,7 @@ namespace CallBoardNix.Controllers
             return View(result);
         }
         [HttpGet]
+        [Authorize(Roles = "Employer")]
         public async Task<IActionResult> EditAdvert(Guid IdAdvert)
         {
             var result = await _companyService.GetAdvertById(IdAdvert);
@@ -127,25 +138,44 @@ namespace CallBoardNix.Controllers
             return View(advert);
         }
         [HttpPost]
+        [Authorize(Roles = "Employer")]
         public async Task<IActionResult> EditAdvert(AdvertView model, Guid IdAdvert)
         {
-            var advert = _mapper.Map<AdvertDTO>(model);
-            await _companyService.EditAdvert(advert, IdAdvert);
-            return RedirectToAction("Index", "Home");
+            if(model == null)
+            {
+                ModelState.AddModelError("", "Not enough data!");
+            }
+            else
+            {
+                var advert = _mapper.Map<AdvertDTO>(model);
+                await _companyService.EditAdvert(advert, IdAdvert);
+                return RedirectToAction("Index", "Home");
+            }
+            return View(model);
         }
         [HttpGet]
+        [Authorize(Roles = "Employer")]
         public async Task<ActionResult> CreateCompany()
         {
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "Employer")]
         public async Task<ActionResult> CreateCompany(CompanyView company)
         {
-            var model = _mapper.Map<CompanyDTO>(company);
-            model.IdCompany = Guid.NewGuid();
-            await _companyService.AddCompany(model);
-            await _userService.EditUserCompany(User.Identity.Name, model.IdCompany);
-            return RedirectToAction("Company", "Company");
+            if(company == null)
+            {
+                ModelState.AddModelError("", "Not enough data!");
+            }
+            else
+            {
+                var model = _mapper.Map<CompanyDTO>(company);
+                model.IdCompany = Guid.NewGuid();
+                await _companyService.AddCompany(model);
+                await _userService.EditUserCompany(User.Identity.Name, model.IdCompany);
+                return RedirectToAction("Company", "Company");
+            }
+            return View(company);
         }
     }
 }
