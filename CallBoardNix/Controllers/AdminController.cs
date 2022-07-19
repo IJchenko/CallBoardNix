@@ -2,7 +2,6 @@
 using BusinessLayer.DTO;
 using BusinessLayer.Interfaces;
 using CallBoardNix.Models;
-using CallBoardNix.Models.Advert;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +27,7 @@ namespace CallBoardNix.Controllers
             return View();
         }
         [HttpGet]
-        public async Task<IActionResult> Category(string sortByName, Guid IdCategoryDelete)
+        public async Task<IActionResult> Category(string sort, Guid IdCategoryDelete)
         {
             if(IdCategoryDelete != Guid.Empty)
             {
@@ -37,18 +36,17 @@ namespace CallBoardNix.Controllers
             var categories = _mapper.Map<List<CategoryView>>(await _companyService.GetCategory());
             IQueryable<CategoryView> result = categories.AsQueryable<CategoryView>();
             result.Include(x => x.CategoryName);
-            switch (sortByName)
+            switch (sort)
             {
-                case "Name_Asc":
+                case "Asc":
                     result = result.OrderBy(x => x.CategoryName);
                     break;
+                case "Desc":
+                    result = result.OrderByDescending(x => x.CategoryName);
+                    break;
             }
-            CategoryResult res = new CategoryResult
-                (
-                result
-                );
-            return View(res);
-        }
+            return View(result);
+        }  
         [HttpGet]
         public IActionResult CategoryCreate()
         {
