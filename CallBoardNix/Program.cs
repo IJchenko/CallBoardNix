@@ -21,6 +21,7 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfile), typeof(AutoMapperViewP
 // 
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ICompanyService, CompanyService>();
+builder.Services.AddTransient<IAdminService, AdminService>();
 builder.Services.AddTransient<IRepository, GenericRepository>();
 builder.Services.AddControllersWithViews();
 
