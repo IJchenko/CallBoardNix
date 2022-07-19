@@ -92,6 +92,11 @@ namespace BusinessLayer.Services
             var categoty = _mapper.Map<List<CategoryDTO>>(await _repository.GetAll<Category>());
             return categoty;
         }
+        public async Task<CategoryDTO> GetCategoryById(Guid guid)
+        {
+            var categoty = await _repository.GetById<Category>(guid);
+            return _mapper.Map<CategoryDTO>(categoty);
+        }
 
         public async Task<CompanyDTO> GetCompanyById(Guid guid)
         {
