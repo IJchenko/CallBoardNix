@@ -12,7 +12,7 @@
      <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-0">
             <div class="container">
-                <a class="navbar-brand w-25 text-center" asp-area="" asp-controller="Home" asp-action="Index">CallBoardNix</a>
+                <a class="navbar-brand w-25 text-center"  asp-controller="Home" asp-action="Index">CallBoardNix</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -22,15 +22,22 @@
                         @{
                             if (User.Identity.IsAuthenticated)
                             {
-                                <li class="nav-item bg-white">       
-                                    <a class="btn btn-outline-dark btn-sm" style="border-radius: 0px;" asp-area="" asp-controller="Account" asp-action="Profile">Hello @User.Identity.Name!</a>
+                                <li class="nav-item bg-white">   
+                                    @if(User.IsInRole("Admin"))
+                                    {
+                                        <a class="btn btn-outline-danger btn-sm" style="border-radius: 0px;" asp-controller="Admin" asp-action="AdminPanel">Admin Panel</a>
+                                    }
+                                    else
+                                    {
+                                       <a class="btn btn-outline-dark btn-sm" style="border-radius: 0px;" asp-controller="Account" asp-action="Profile">Hello @User.Identity.Name!</a>                                     
+                                    }
                                 </li>
                             }
                             else
                             {
                                 <li class="nav-item bg-white">
-                                    <a class="btn btn-outline-dark btn-sm" style="border-radius: 0px;" asp-area="" asp-controller="Account" asp-action="Register">Sign up</a>
-                                    <a class="btn btn-outline-dark btn-sm" style="border-radius: 0px;"  asp-area="" asp-controller="Account" asp-action="Login">Sign in</a>
+                                    <a class="btn btn-outline-dark btn-sm" style="border-radius: 0px;" asp-controller="Account" asp-action="Register">Sign up</a>
+                                    <a class="btn btn-outline-dark btn-sm" style="border-radius: 0px;" asp-controller="Account" asp-action="Login">Sign in</a>
                                 </li>
                             }
                         }
@@ -44,8 +51,8 @@
         <div class="p-2 w-25 border-start border-end">
             <div class="bg-white">
                 <nav class="nav flex-column mt-0 bg-white w-100">
-                    <a class="nav-item btn btn-outline-dark" style="border-radius: 0px;" asp-area="" asp-controller="Home" asp-action="Index">Main</a>
-                    <a class="nav-item btn btn-outline-dark" style="margin-top: 4px; border-radius: 0px;" asp-area="" asp-controller="Company" asp-action="Company">Company</a>
+                    <a class="nav-item btn btn-outline-dark" style="border-radius: 0px;" asp-controller="Home" asp-action="Index">Main</a>
+                    <a class="nav-item btn btn-outline-dark" style="margin-top: 4px; border-radius: 0px;" asp-controller="Company" asp-action="Company">Company</a>
 
                 </nav>
             </div>
@@ -58,7 +65,7 @@
 
     <footer class="border-top footer text-muted">
     <div class="container">
-        &copy; 2022 - CallBoardNix - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        &copy; 2022 - CallBoardNix - <a asp-controller="Home" asp-action="Privacy">Privacy</a>
     </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

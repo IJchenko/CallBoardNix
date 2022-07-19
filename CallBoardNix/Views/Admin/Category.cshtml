@@ -1,0 +1,28 @@
+﻿@model CallBoardNix.Models.Advert.CategoryResult
+@{
+    Layout = "/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="pt-4 pb-4">
+    <a class="btn btn-outline-dark btn-sm" style="border-radius: 0px;"  asp-controller="Admin" asp-action="CategoryCreate">Create Categoory</a>
+</div>
+<table>
+    <tr>
+        <th>
+            <a asp-action="Category" asp-route-sortByName="Name_Asc">Category Name</a>
+        </th>
+    </tr>
+    @foreach (var item in Model.CategoryView)
+    {
+        <tr class="border-top">
+            <td>
+                @item.CategoryName
+            </td>
+            <td style="padding-left:1100px">
+                <a asp-action="CategoryEdit" asp-route-IdCategory="@item.IdCategory">Edit  </a>
+            </td>
+            <td>
+                <a asp-action="Category" asp-route-IdCategoryDelete="@item.IdCategory">Delete</a>
+            </td>
+        </tr>
+    }
+</table>

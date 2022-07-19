@@ -59,7 +59,7 @@ namespace CallBoardNix.Controllers
             return View(advert);
         }
         [HttpGet]
-        [Authorize(Roles = "Worker, Employer")]
+        [Authorize(Roles = "Worker, Employer, Admin")]
         public async Task<ActionResult> Company(int page = 1)
         {
             var user = _mapper.Map<User>(await _userManager.FindByNameAsync(User.Identity.Name));

@@ -14,6 +14,7 @@ namespace BusinessLayer.Interfaces
         Task AddAdvert(AdvertDTO model);
         Task DeleteAdvert(Guid IdAdvert);
         Task EditAdvert(AdvertDTO model,Guid IdAdvert);
+        Task<CategoryDTO> GetCategoryById(Guid guid);
         Task<CompanyDTO> GetCompanyById(Guid guid);
         Task<AdvertDTO> GetAdvertById(Guid guid);
         Task<List<AdvertDTO>> GetAdvertWhere(Guid guid);
