@@ -1,0 +1,26 @@
+﻿@model CallBoardNix.Models.CategoryView
+@{
+    Layout = "/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="p-5" style="height:820px">
+    <h5 class="text-center mt-4">
+        Category creation...
+    </h5>
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <form asp-controller="Admin" asp-action="CategoryCreate" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="CategoryName" class="control-label"></label>
+                    <input asp-for="CategoryName" class="form-control" />
+                    <span asp-validation-for="CategoryName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group text-center pt-4 pb-lg-5">
+                    <input type="submit" value="Create" class="btn btn-outline-dark" style="border-radius: 0px;" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
