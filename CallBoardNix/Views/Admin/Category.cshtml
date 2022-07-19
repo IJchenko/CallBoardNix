@@ -1,4 +1,4 @@
-﻿@model CallBoardNix.Models.Advert.CategoryResult
+﻿@model IQueryable<CallBoardNix.Models.CategoryView>
 @{
     Layout = "/Views/Shared/_LayoutAdmin.cshtml";
 }
@@ -7,11 +7,16 @@
 </div>
 <table>
     <tr>
-        <th>
-            <a asp-action="Category" asp-route-sortByName="Name_Asc">Category Name</a>
+        <th class="row">
+            <h6>Category Name</h6>
+            <div class="col">
+                Sort:
+                <a asp-action="Category" asp-route-sort="Asc">Asc</a>
+                <a asp-action="Category" asp-route-sort="Desc">Desc</a>
+            </div>
         </th>
     </tr>
-    @foreach (var item in Model.CategoryView)
+    @foreach (var item in Model)
     {
         <tr class="border-top">
             <td>

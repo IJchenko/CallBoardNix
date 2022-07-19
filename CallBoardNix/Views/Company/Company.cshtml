@@ -53,13 +53,14 @@
             asp-action="Company" asp-route-page="@(Model.Pagination.PageNumber-1)">Prev</a>
        </li> 
     }
-    else
+    else if(Model.Pagination.HasNextPage)
     {
         <li class="page-item">
-            <a class="btn btn-outline-dark btn-sm" style="border-radius: 0px;" 
+            <a class="btn btn-outline-dark btn-sm" style="border-radius: 0px;"
             asp-action="Company" asp-route-page="@(Model.Pagination.PageNumber+1)">Next</a>
         </li>
-    }}
+    }
+    else{}}
     </ul>
     <h6 class="text-center">@Model.Pagination.PageNumber - @Model.Pagination.TotalPages</h6>
 </nav>
