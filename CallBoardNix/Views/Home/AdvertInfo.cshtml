@@ -2,7 +2,7 @@
 @{
 
 }
-<div class="p-2">
+<div class="p-5" style="height:800px">
         <div class="row"> 
             <div class="col"> 
                 <h5>@Model.AdvertView.NameAdvert</h5> 
@@ -17,5 +17,31 @@
     <h6>@Model.AdvertView.Requirements</h6><br> 
     <h5>Company: @Model.CompanyView.CompanyName</h5>
     <a asp-controller="Company" asp-action="CompanyInfo" asp-route-IdCompany="@Model.CompanyView.IdCompany">go to company page</a>
+    @if(User.IsInRole("Worker"))
+    {
+        <br><br><h5>Ad popularity: @Model.AdvertView.Resume.Count requests</h5>
+        <br><br><a class="btn btn-outline-dark btn-sm" style="border-radius: 0px;" 
+        asp-controller="Home" asp-action="AddResume" asp-route-IdAdvert="@Model.AdvertView.IdAdvert">Add Resume</a>
+    }
+    @if((User.IsInRole("Employer")) && Model.UserIsInCurrent==Model.CompanyView.IdCompany)
+    {
+        <ul style="padding-left:0px; padding-top:20px">
+        @foreach (var item in Model.AdvertView.Resume)
+        {
+            <li class="border mb-3" style="margin-right:26px;height:100px;overflow-wrap:anywhere; overflow:auto; overflow-x:hidden">
+                <div class="col p-2">
+                    <a asp-controller="Company" asp-action="CheckProfile" asp-route-Login="@item.Login">@item.Login</a>
+                    <a class="btn btn-outline-danger btn-sm" style="border-radius: 0px; margin-left:750px"
+                    asp-action="AdvertInfo" asp-route-DeleteResume="@item.IdResume" asp-route-IdAdvert="@item.IdAdvert">Delete</a>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h6 class="ms-2">@item.Description</h6>
+                    </div>
+                </div>
+            </li>
+        }
+        </ul>
+    }
 </div>
 

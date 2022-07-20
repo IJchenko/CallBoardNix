@@ -16,5 +16,6 @@ namespace BusinessLayer.DTO
         public string Salary { get; set; }
         public Guid IdCompany { get; set; }
         public Guid IdCategory { get; set; }
+        public List<ResumeDTO> Resume { get; set; }
     }
 }

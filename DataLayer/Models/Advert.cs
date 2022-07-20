@@ -19,5 +19,6 @@ namespace DataLayer.Models
         public string Salary { get; set; }
         public Guid IdCompany { get; set; }
         public Guid IdCategory { get; set; }
+        public List<Resume> Resume { get; set; } = new List<Resume>();
     }
 }

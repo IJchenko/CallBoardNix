@@ -10,10 +10,9 @@ namespace BusinessLayer.DTO
     public class ResumeDTO
     {
         public Guid IdResume { get; set; }
-        public string City { get; set; }
-        public string Salary { get; set; }
         public string Description { get; set; }
-        public Guid IdUser { get; set; }
-        public Guid IdCategory { get; set; }
+        public string Login { get; set; }
+        public Guid IdAdvert { get; set; }
+        public AdvertDTO Advert { get; set; }
     }
 }
