@@ -29,15 +29,6 @@ namespace BusinessLayer.Services
             var company = _mapper.Map<Company>(model);
             await _repository.Create(company);
         }
-        public async Task EditCompany(CompanyDTO model)
-        {
-            if (model == null)
-            {
-                throw new ArgumentNullException(nameof(model), "model is empty");
-            }
-            var company = _mapper.Map<Company>(model);
-            await _repository.Update(company);
-        }
         public async Task<List<CompanyDTO>> GetCompany()
         {
             var company = _mapper.Map<List<CompanyDTO>>(await _repository.GetAll<Company>());
@@ -106,7 +97,13 @@ namespace BusinessLayer.Services
         public async Task<AdvertDTO> GetAdvertById(Guid guid)
         {
             var res = await _repository.GetById<Advert>(guid);
+            var resumes = await _repository.GetAll<Resume>();
             return _mapper.Map<AdvertDTO>(res);
         }
+
+        public async Task DeleteResume(Guid IdResume)
+        {
+            await _repository.Delete<Resume>(IdResume);
+        }
     }
-}            
+}

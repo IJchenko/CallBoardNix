@@ -20,24 +20,6 @@ namespace BusinessLayer.Services
             _repository = repository;
             _mapper = mapper;
         }
-        public async Task AddReviewCompany(ReviewDTO model)
-        {
-            if (model == null)
-            {
-                throw new ArgumentNullException(nameof(model), "model is empty");
-            }
-            var review = _mapper.Map<Review>(model);
-            await _repository.Create(review);
-        }
-        public async Task EditUser(UserDTO model)
-        {
-            if (model == null)
-            {
-                throw new ArgumentNullException(nameof(model), "model is empty");
-            }
-            var user = _mapper.Map<User>(model);
-            await _repository.Update(user);
-        }
         public async Task EditUserCompany(string login, Guid guid)
         {
             var users = await _repository.GetAll<User>();
@@ -51,17 +33,10 @@ namespace BusinessLayer.Services
             {
                 throw new ArgumentNullException(nameof(model), "model is empty");
             }
-            var resume = _mapper.Map<Resume>(model);
+            var advert = await _repository.GetById<Advert>(model.IdAdvert);
+            var resume = _mapper.Map<Resume>(model);        
+            resume.Advert = advert;
             await _repository.Create(resume);
-        }
-        public async Task EditResume(ResumeDTO model)
-        {
-            if (model == null)
-            {
-                throw new ArgumentNullException(nameof(model), "model is empty");
-            }
-            var resume = _mapper.Map<Resume>(model);
-            await _repository.Update(resume);
         }
     }
 }
