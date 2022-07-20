@@ -1,4 +1,5 @@
-﻿using DataLayer.Models;
+﻿using CallBoardNix.Models.Advert;
+using DataLayer.Models;
 
 namespace CallBoardNix.Models
 {
@@ -11,5 +12,6 @@ namespace CallBoardNix.Models
         public string? Salary { get; set; }
         public Guid IdCompany { get; set; }
         public Guid IdCategory { get; set; }
+        public List<ResumeViewModel> Resume { get; set; }
     }
 }

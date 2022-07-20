@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusinessLayer.DTO;
 using CallBoardNix.Models;
+using CallBoardNix.Models.Advert;
 using DataLayer.Models;
 
 namespace CallBoardNix.Extentions
@@ -12,6 +13,7 @@ namespace CallBoardNix.Extentions
             CreateMap<AdvertDTO, AdvertView>().ReverseMap();
             CreateMap<CategoryDTO, CategoryView>().ReverseMap();
             CreateMap<CompanyDTO, CompanyView>().ReverseMap();
+            CreateMap<ResumeDTO, ResumeViewModel>().ReverseMap();
         }
     }
 }
