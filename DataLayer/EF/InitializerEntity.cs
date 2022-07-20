@@ -31,7 +31,7 @@ namespace DataLayer.EF
             if(await userManager.FindByNameAsync("Admin")==null)
             {
                 User admin = new User() { Name = AdminName, 
-                Surname = AdminSurname, Status = AdminStatus, UserName = AdminName };
+                Surname = AdminSurname, Status = AdminStatus, UserName = AdminName, EmailConfirmed = true };
                 IdentityResult result = await userManager.CreateAsync(admin, AdminPassword);
                 if(result.Succeeded)
                 {
