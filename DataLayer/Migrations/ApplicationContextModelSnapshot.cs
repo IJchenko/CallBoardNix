@@ -96,49 +96,23 @@ namespace DataLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid?>("AdvertIdAdvert")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("IdCategory")
+                    b.Property<Guid>("IdAdvert")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("IdUser")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Salary")
+                    b.Property<string>("Login")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdResume");
 
+                    b.HasIndex("AdvertIdAdvert");
+
                     b.ToTable("Resumes");
-                });
-
-            modelBuilder.Entity("DataLayer.Models.Review", b =>
-                {
-                    b.Property<Guid>("IdReview")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<Guid>("IdCompany")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IdUser")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Mark")
-                        .HasMaxLength(5)
-                        .HasColumnType("int");
-
-                    b.HasKey("IdReview");
-
-                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("DataLayer.Models.User", b =>
@@ -359,6 +333,15 @@ namespace DataLayer.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("DataLayer.Models.Resume", b =>
+                {
+                    b.HasOne("DataLayer.Models.Advert", "Advert")
+                        .WithMany("Resume")
+                        .HasForeignKey("AdvertIdAdvert");
+
+                    b.Navigation("Advert");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -408,6 +391,11 @@ namespace DataLayer.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DataLayer.Models.Advert", b =>
+                {
+                    b.Navigation("Resume");
                 });
 #pragma warning restore 612, 618
         }

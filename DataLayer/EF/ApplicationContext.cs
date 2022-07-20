@@ -19,6 +19,5 @@ namespace DataLayer.EF
         public DbSet<Category> Categories { get; set; }
         public DbSet<Company> Companys { get; set; }
         public DbSet<Resume> Resumes { get; set; }
-        public DbSet<Review> Reviews { get; set; }
     }
 }

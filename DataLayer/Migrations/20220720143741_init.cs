@@ -101,30 +101,19 @@ namespace DataLayer.Migrations
                 columns: table => new
                 {
                     IdResume = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Salary = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IdUser = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IdCategory = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Login = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IdAdvert = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AdvertIdAdvert = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Resumes", x => x.IdResume);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Reviews",
-                columns: table => new
-                {
-                    IdReview = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    Mark = table.Column<int>(type: "int", maxLength: 5, nullable: false),
-                    IdUser = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IdCompany = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Reviews", x => x.IdReview);
+                    table.ForeignKey(
+                        name: "FK_Resumes_Adverts_AdvertIdAdvert",
+                        column: x => x.AdvertIdAdvert,
+                        principalTable: "Adverts",
+                        principalColumn: "IdAdvert");
                 });
 
             migrationBuilder.CreateTable(
@@ -271,13 +260,15 @@ namespace DataLayer.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Resumes_AdvertIdAdvert",
+                table: "Resumes",
+                column: "AdvertIdAdvert");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Adverts");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -303,13 +294,13 @@ namespace DataLayer.Migrations
                 name: "Resumes");
 
             migrationBuilder.DropTable(
-                name: "Reviews");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Adverts");
         }
     }
 }
