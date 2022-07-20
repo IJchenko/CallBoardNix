@@ -130,6 +130,20 @@ namespace CallBoardNix.Controllers
             return View(result);
         }
         [HttpGet]
+        public async Task<ActionResult> CheckProfile(string Login)
+        {
+            var user = _mapper.Map<User>(await _userManager.FindByNameAsync(Login));
+            UserViewModel result = new UserViewModel
+            {
+                Name = user.Name,
+                Surname = user.Surname,
+                PhoneNumber = user.PhoneNumber,
+                Email = user.Email,
+                UserName = user.UserName
+            };
+            return View(result);
+        }
+        [HttpGet]
         [Authorize(Roles = "Employer")]
         public async Task<IActionResult> EditAdvert(Guid IdAdvert)
         {
