@@ -7,7 +7,7 @@
     <h5>Description:</h5>
     <h6>@Model.Company.Description</h6><br> 
     <h5>Link to official site:</h5>
-    <h6>@Model.Company.Link</h6><br> 
+    <a href="@Model.Company.Link">Link</a><br> 
     @if(@Model.User.IdCompany==@Model.Company.IdCompany)
     {
         <a class="btn btn-outline-dark btn-sm" style="margin-top: 4px; border-radius: 0px; margin-bottom: 5px"
