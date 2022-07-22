@@ -16,7 +16,10 @@
     <h5>Requirements:</h5>
     <h6>@Model.AdvertView.Requirements</h6><br> 
     <h5>Company: @Model.CompanyView.CompanyName</h5>
-    <a asp-controller="Company" asp-action="CompanyInfo" asp-route-IdCompany="@Model.CompanyView.IdCompany">go to company page</a>
+    @if(User.Identity.IsAuthenticated)
+    {
+        <a asp-controller="Company" asp-action="CompanyInfo" asp-route-IdCompany="@Model.CompanyView.IdCompany">go to company page</a>
+    }
     @if(User.IsInRole("Worker"))
     {
         <br><br><h5>Ad popularity: @Model.AdvertView.Resume.Count requests</h5>

@@ -11,5 +11,10 @@
             CompanyView = companyView;
             UserIsInCurrent = userIsInCurrent;
         }
+        public AdvertInfoModel(AdvertView advertView, CompanyView companyView)
+        {
+            AdvertView = advertView;
+            CompanyView = companyView;
+        }
     }
 }
