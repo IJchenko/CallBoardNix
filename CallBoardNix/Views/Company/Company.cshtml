@@ -5,7 +5,7 @@
         if (@Model.User.IdCompany == Guid.Empty)
         {
             <h6 class="text-center" style="margin-top:10px;margin-bottom:10px">
-                Search your company or create, the choise is your!
+                Create your company -  
                 <a asp-controller="Company" asp-action="CreateCompany">create company</a>
             </h6>
         }
@@ -18,7 +18,7 @@
         }
     }
 }
-<ul style="height: 690px">
+<ul style="height: 750px">
     @foreach(var item in Model.Companys)
     {
     <li class="border mb-3"style="margin-right:26px;height:100px;overflow-wrap:anywhere; overflow:auto; overflow-x:hidden">
