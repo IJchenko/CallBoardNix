@@ -43,7 +43,7 @@ namespace CallBoardNix.Controllers
                 items
             );
             return View(listOfAdvert);
-        }    
+        }
         [HttpGet]
         public async Task<IActionResult> AdvertInfo(Guid IdAdvert, Guid DeleteResume)
         {
@@ -51,26 +51,38 @@ namespace CallBoardNix.Controllers
             {
                 await _companyService.DeleteResume(DeleteResume);
             }
-            var user = _mapper.Map<User>(await _userManager.FindByNameAsync(User.Identity.Name));
-            UserViewModel UserModel = new UserViewModel
-            {
-                IdCompany = user.IdCompany,
-            };
-            Guid UserIsICurrent = Guid.Empty;
-            if (user.IdCompany != Guid.Empty)
-            {
-                UserIsICurrent = UserModel.IdCompany;
-            }
             var advert = _mapper.Map<AdvertView>(await _companyService.GetAdvertById(IdAdvert));
             var company = _mapper.Map<CompanyView>(await _companyService.GetCompanyById(advert.IdCompany));
-
-            AdvertInfoModel result = new AdvertInfoModel
-                (
-                    advert,
-                    company,
-                    UserIsICurrent
-                );
-            return View(result);
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = _mapper.Map<User>(await _userManager.FindByNameAsync(User.Identity.Name));
+                UserViewModel UserModel = new UserViewModel
+                {
+                    IdCompany = user.IdCompany,
+                };
+                Guid UserIsICurrent = Guid.Empty;
+                if (user.IdCompany != Guid.Empty)
+                {
+                    UserIsICurrent = UserModel.IdCompany;
+                }
+                AdvertInfoModel result = new AdvertInfoModel
+                                (
+                                    advert,
+                                    company,
+                                    UserIsICurrent
+                                );
+                return View(result);
+            }
+            else
+            {
+                AdvertInfoModel result = new AdvertInfoModel
+                                (
+                                    advert,
+                                    company
+                                );
+                return View(result);
+            }
+            return View();
         }
         [HttpGet]
         public async Task<IActionResult> AddResume(Guid IdAdvert)
