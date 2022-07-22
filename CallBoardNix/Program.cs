@@ -9,22 +9,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-// Add DbContext
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
-// Add Identity
 builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationContext>();
-// Add AutoMapper
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile), typeof(AutoMapperViewProfile));
-// 
-builder.Services.AddTransient<IUserService, UserService>();
-builder.Services.AddTransient<ICompanyService, CompanyService>();
-builder.Services.AddTransient<IAdminService, AdminService>();
-builder.Services.AddTransient<IRepository, GenericRepository>();
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddDependency();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -15,11 +15,10 @@ namespace DataLayer.Repository
         {
             _dbContext = dbContext;
         }
-        public async Task<TEntity> Create<TEntity>(TEntity entity) where TEntity : class
+        public async Task Create<TEntity>(TEntity entity) where TEntity : class
         {
             _dbContext.Add(entity);
             await _dbContext.SaveChangesAsync();
-            return entity;
         }
         public async Task Delete<TEntity>(Guid guid) where TEntity : class
         {

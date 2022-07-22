@@ -36,6 +36,10 @@ namespace BusinessLayer.Services
         }
         public async Task DeleteAdvert(Guid IdAdvert)
         {
+            if (IdAdvert == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(IdAdvert), "id is empty");
+            }
             await _repository.Delete<Advert>(IdAdvert);
         }
         public async Task EditAdvert(AdvertDTO model,Guid IdAdvert)

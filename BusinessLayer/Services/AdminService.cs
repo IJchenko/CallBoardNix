@@ -31,6 +31,10 @@ namespace BusinessLayer.Services
         }
         public async Task DeleteCategory(Guid guid)
         {
+            if (guid == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(guid), "guid is empty");
+            }
             await _repository.Delete<Category>(guid);
         }
         public async Task EditCategory(Guid guid, CategoryDTO model)
