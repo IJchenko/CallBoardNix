@@ -13,7 +13,7 @@ namespace BusinessLayer.DTO
         public string NameAdvert { get; set; }
         public string Description { get; set; }
         public string Requirements { get; set; }
-        public string Salary { get; set; }
+        public int Salary { get; set; }
         public Guid IdCompany { get; set; }
         public Guid IdCategory { get; set; }
         public List<ResumeDTO> Resume { get; set; }

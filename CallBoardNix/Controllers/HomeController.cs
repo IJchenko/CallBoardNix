@@ -95,16 +95,12 @@ namespace CallBoardNix.Controllers
         [HttpPost]
         public async Task<IActionResult> AddResume(ResumeViewModel model)
         {
-            if(model != null)
+            if(model.Description == null){ }
+            else
             {
                 model.Login = User.Identity.Name;
                 await _userService.AddResume(_mapper.Map<ResumeDTO>(model));
-                
                 return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                ModelState.AddModelError("", "Input data!");
             }
             return View();
         }

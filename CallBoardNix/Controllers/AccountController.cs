@@ -94,10 +94,7 @@ namespace CallBoardNix.Controllers
                 }
                 else ModelState.AddModelError("", "Wrong login or password");
             }
-            else
-            {
-                ModelState.AddModelError("", "Input your data");
-            }
+            else{ }
             return View();
         }
         [HttpPost]

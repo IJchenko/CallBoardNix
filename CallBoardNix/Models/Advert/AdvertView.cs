@@ -1,5 +1,6 @@
 ﻿using CallBoardNix.Models.Advert;
 using DataLayer.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace CallBoardNix.Models
 {
@@ -9,7 +10,7 @@ namespace CallBoardNix.Models
         public string? NameAdvert { get; set; }
         public string? Description { get; set; }
         public string? Requirements { get; set; }
-        public string? Salary { get; set; }
+        public int? Salary { get; set; }
         public Guid IdCompany { get; set; }
         public Guid IdCategory { get; set; }
         public List<ResumeViewModel>? Resume { get; set; }
