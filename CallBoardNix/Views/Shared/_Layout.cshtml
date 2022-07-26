@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CallBoardNix.styles.css" asp-append-version="true" />
 </head>
-<body>
-     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-0">
+<body style="background-color:#e8f0fc">
+     <header style="background-color:#0d6efd">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-0 border-primary">
             <div class="container">
-                <a class="navbar-brand w-25 text-center"  asp-controller="Home" asp-action="Index">CallBoardNix</a>
+                <a class="navbar-brand w-25 text-center" style="color:#ffc107"  asp-controller="Home" asp-action="Index">CallBoardNix</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -22,22 +22,26 @@
                         @{
                             if (User.Identity.IsAuthenticated)
                             {
-                                <li class="nav-item bg-white">   
+                                
                                     @if(User.IsInRole("Admin"))
                                     {
+                                        <li class="nav-item" style="background-color:#cfe2ff">   
                                         <a class="btn btn-outline-danger btn-sm" style="border-radius: 0px;" asp-controller="Admin" asp-action="AdminPanel">Admin Panel</a>
+                                        </li>
                                     }
                                     else
                                     {
-                                       <a class="btn btn-outline-dark btn-sm" style="border-radius: 0px;" asp-controller="Account" asp-action="Profile">Hello @User.Identity.Name!</a>                                     
+                                         <li class="nav-item" style="background-color:#0d6efd">
+                                       <a class="btn btn-outline-warning btn-sm" style="border-radius: 0px;" asp-controller="Account" asp-action="Profile">Hello @User.Identity.Name!</a>                                     
+                                   </li>
                                     }
-                                </li>
+                                
                             }
                             else
                             {
-                                <li class="nav-item bg-white">
-                                    <a class="btn btn-outline-dark btn-sm" style="border-radius: 0px;" asp-controller="Account" asp-action="Register">Sign up</a>
-                                    <a class="btn btn-outline-dark btn-sm" style="border-radius: 0px;" asp-controller="Account" asp-action="Login">Sign in</a>
+                                <li class="nav-item" style="background-color:#0d6efd">
+                                    <a class="btn btn-outline-warning btn-sm" style="border-radius: 0px; color:black" asp-controller="Account" asp-action="Register">Sign up</a>
+                                    <a class="btn btn-outline-warning btn-sm" style="border-radius: 0px; color:black" asp-controller="Account" asp-action="Login">Sign in</a>
                                 </li>
                             }
                         }
@@ -48,24 +52,24 @@
     </header>
     <div class="container">
     <div class="d-flex">
-        <div class="p-2 w-25 border-start border-end">
-            <div class="bg-white">
-                <nav class="nav flex-column mt-0 bg-white w-100">
-                    <a class="nav-item btn btn-outline-dark" style="border-radius: 0px;" asp-controller="Home" asp-action="Index">Main</a>
-                    <a class="nav-item btn btn-outline-dark" style="margin-top: 4px; border-radius: 0px;" asp-controller="Company" asp-action="Company">Company</a>
+        <div class="p-2 w-25 border-start border-end border-primary" style="background-color:#cfe2ff">
+            <div class="">
+                <nav class="nav flex-column mt-0  w-100">
+                    <a class="nav-item btn btn-outline-warning" style="border-radius: 0px; color:black;" asp-controller="Home" asp-action="Index">Main</a>
+                    <a class="nav-item btn btn-outline-warning" style="margin-top: 8px; border-radius: 0px; color:black" asp-controller="Company" asp-action="Company">Company</a>
 
                 </nav>
             </div>
         </div>
-        <main class="p-2 w-75 border-end">
+        <main class="p-2 w-75 border-end border-primary" style="background-color:#cfe2ff">
             @RenderBody()
         </main>
     </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-    <div class="container">
-        &copy; 2022 - CallBoardNix - <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="border-top border-primary footer text-muted" style="background-color:#0d6efd">
+    <div class="container" style="color:#ffc107">
+        &copy; 2022 - CallBoardNix
     </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

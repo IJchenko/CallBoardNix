@@ -2,7 +2,7 @@
 @{
 
 }
-<div class="p-5" style="height:800px">
+<div class="p-5" style="height:820px">
         <div class="row"> 
             <div class="col"> 
                 <h5>@Model.AdvertView.NameAdvert</h5> 
@@ -31,7 +31,7 @@
         <ul style="padding-left:0px; padding-top:20px">
         @foreach (var item in Model.AdvertView.Resume)
         {
-            <li class="border mb-3" style="margin-right:26px;height:100px;overflow-wrap:anywhere; overflow:auto; overflow-x:hidden">
+            <li class="border mb-3 border-primary" style="margin-right:26px;height:100px;overflow-wrap:anywhere; overflow:auto; overflow-x:hidden">
                 <div class="col p-2">
                     <a asp-controller="Company" asp-action="CheckProfile" asp-route-Login="@item.Login">@item.Login</a>
                     <a class="btn btn-outline-danger btn-sm" style="border-radius: 0px; margin-left:750px"

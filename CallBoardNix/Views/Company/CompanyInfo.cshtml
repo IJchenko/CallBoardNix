@@ -14,10 +14,10 @@
         asp-controller="Company" asp-action="CreateAdvert">Create Advert</a>
     }
     <h5 class="mt-4">Other adverts of this company:</h5>
-    <ul style="height:355px; padding-left:0px">
+    <ul style="height:450px; padding-left:0px">
     @foreach(var item in Model.Adverts)
     {
-    <li class="border mb-3" style="margin-right:26px;height:100px;overflow-wrap:anywhere; overflow:auto; overflow-x:hidden">
+    <li class="border border-primary mb-3" style="margin-right:26px;height:100px;overflow-wrap:anywhere; overflow:auto; overflow-x:hidden">
         <div class="row p-2"> 
             <div class="col"> 
                 <a asp-controller="Home" asp-action="AdvertInfo" asp-route-IdAdvert="@item.IdAdvert">@item.NameAdvert</a> 

@@ -11,23 +11,24 @@
             <h6>Category Name</h6>
             <div class="col">
                 Sort:
-                <a asp-action="Category" asp-route-sort="Asc">Asc</a>
-                <a asp-action="Category" asp-route-sort="Desc">Desc</a>
+                <a style="color:red" asp-action="Category" asp-route-sort="Asc">Asc</a>
+                <a style="color:red" asp-action="Category" asp-route-sort="Desc">Desc</a>
             </div>
         </th>
     </tr>
     @foreach (var item in Model)
     {
-        <tr class="border-top">
+        <tr class="border-top border-dark">
             <td>
                 @item.CategoryName
             </td>
             <td style="padding-left:1100px">
-                <a asp-action="CategoryEdit" asp-route-IdCategory="@item.IdCategory">Edit  </a>
+                <a style="color:red" asp-action="CategoryEdit" asp-route-IdCategory="@item.IdCategory">Edit  </a>
             </td>
             <td>
-                <a asp-action="Category" asp-route-IdCategoryDelete="@item.IdCategory">Delete</a>
+                <a style="color:red" asp-action="Category" asp-route-IdCategoryDelete="@item.IdCategory">Delete</a>
             </td>
         </tr>
     }
 </table>
+<br>
