@@ -18,10 +18,10 @@
         }
     }
 }
-<ul style="height: 750px">
+<ul style="height: 760px">
     @foreach(var item in Model.Companys)
     {
-    <li class="border mb-3"style="margin-right:26px;height:100px;overflow-wrap:anywhere; overflow:auto; overflow-x:hidden">
+    <li class="border border-primary mb-3"style="margin-right:26px;height:100px;overflow-wrap:anywhere; overflow:auto; overflow-x:hidden">
         <div class="col p-2"> 
             <a asp-action="CompanyInfo" asp-route-IdCompany="@item.IdCompany">@item.CompanyName</a> 
         </div>

@@ -9,21 +9,21 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CallBoardNix.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body style="background-color:#aaaaaa">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-0">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-0 border-danger">
             <div class="container">
-               <a class="navbar-brand w-25" asp-controller="Home" asp-action="Index">CallBoardNix</a>
+               <a class="navbar-brand w-25" style="color:red" asp-controller="Home" asp-action="Index">CallBoardNix</a>
                <a class="btn btn-outline-danger btn-sm" style="border-radius: 0px;"  asp-controller="Admin" asp-action="Category">Categoory</a>
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container" style="background-color:#dddddd">
         @RenderBody()
     </div>
-    <footer class="border-top footer">
-        <div class="container">
-            &copy; 2022 - CallBoardNix - <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="border-top footer border-danger" style="background-color:#aaaaaa">
+        <div class="container" style="color:red">
+            &copy; 2022 - CallBoardNix
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -1,11 +1,11 @@
 ﻿@{
     Layout = "/Views/Shared/_LayoutAdmin.cshtml";
 }
-<div class="mt-5">
+<div class="pt-5 pb-5">
     <h2 style="color:red">Admin Panel</h2>
     <h6 style="color:red">Access is open. Be careful when performing operations</h6>
 
-    <h6 style="color:red" class="mt-5">For sign off of panel click:</h6>
+    <h6 style="color:red" class="mt-5">For sign off of session:</h6>
     <form method="post" asp-action="Logout" asp-controller="Account">
         <input class="btn btn-outline-danger btn-sm" style="border-radius: 0px;" type="submit" value="Logout" />
     </form>

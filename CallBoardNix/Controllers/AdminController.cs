@@ -55,10 +55,7 @@ namespace CallBoardNix.Controllers
         [HttpPost]
         public async Task<IActionResult> CategoryCreate(CategoryView model)
         {
-            if(model == null)
-            {
-                ModelState.AddModelError("", "");
-            }
+            if(model.CategoryName == null){ }
             else
             {
                 await _adminService.AddCategory(_mapper.Map<CategoryDTO>(model));
@@ -75,10 +72,7 @@ namespace CallBoardNix.Controllers
         [HttpPost]
         public async Task<IActionResult> CategoryEdit(CategoryView model, Guid IdCategory)
         {
-            if (model == null)
-            {
-                ModelState.AddModelError("", "");
-            }
+            if (model.CategoryName == null){ }
             else
             {
                 await _adminService.EditCategory(IdCategory, _mapper.Map<CategoryDTO>(model));

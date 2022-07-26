@@ -9,21 +9,21 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CallBoardNix.styles.css" asp-append-version="true" />
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-0">
+<body style="background-color:#e8f0fc">
+    <header style="background-color:#0d6efd">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom border-primary box-shadow mb-0">
             <div class="container">
-               <a class="navbar-brand w-25" asp-area="" asp-controller="Home" asp-action="Index">CallBoardNix</a>
+               <a class="navbar-brand w-25" style="color:#ffc107" asp-controller="Home" asp-action="Index">CallBoardNix</a>
             </div>
         </nav>
     </header>
     <div>
         @RenderBody()
     </div>
-    <footer class="border-top footer">
-        <div class="container">
-            &copy; 2022 - CallBoardNix - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+    <footer class="border-top border-primary footer text-muted" style="background-color:#0d6efd">
+    <div class="container" style="color:#ffc107">
+        &copy; 2022 - CallBoardNix
+    </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

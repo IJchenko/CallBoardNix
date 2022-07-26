@@ -13,7 +13,6 @@ namespace CallBoardNix.Models.Account
 
         [Required]
         [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", ErrorMessage = "Incorrect data! Example: your1email@poshta.ua")]
-        [EmailAddress]
         public string? Email { get; set; }
         [Required]
         [RegularExpression(@"\d{10}", ErrorMessage = "Incorrect data! Example:XXXXXXXXXX")]

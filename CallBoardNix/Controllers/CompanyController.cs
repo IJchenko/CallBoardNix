@@ -116,7 +116,7 @@ namespace CallBoardNix.Controllers
             var company = _mapper.Map<CompanyView>(await _companyService.GetCompanyById(IdCompany));
             var adverts = _mapper.Map<List<AdvertView>>(await _companyService.GetAdvertWhere(IdCompany));
 
-            int pageSize = 3;
+            int pageSize = 4;
             var count = adverts.Count();
             var items = adverts.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
